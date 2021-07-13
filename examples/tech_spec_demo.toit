@@ -9,14 +9,16 @@ import pixel_display show *
 
 import font show *
 import font.x11_100dpi.sans.sans_18_bold as sans_18_bold
-import texture show *
-import two_color show *
-import pixel_display show *
+import pixel_display.texture show *
+import pixel_display.two_color show *
+
+import .get_driver
 
 sans ::= Font.get "sans10"
 sans_18 ::= Font [sans_18_bold.ASCII, sans_18_bold.LATIN_1_SUPPLEMENT]
 logo ::= Font.get "logo"
-display ::= TwoColorPixelDisplay "eink"
+driver ::= get_driver
+display ::= TwoColorPixelDisplay driver
 
 write text:
   display.remove_all

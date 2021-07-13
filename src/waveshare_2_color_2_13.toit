@@ -10,13 +10,11 @@
 // The hat should be set to 4-pin SPI mode.
 // Busy pin is 0=busy 1=notbusy
 
-import font show *
-import two_color show *
 import bitmap show *
-import .esp32
-import .waveshare_e_paper
-import .waveshare_e_paper_2_color
-import peripherals.rpc show *
+import pixel_display show *
+
+import .e_paper
+import .two_color
 
 LUT_VCOM_DC_ ::= #[
     0x00, 0x08, 0x00, 0x00, 0x00, 0x02,
@@ -171,12 +169,12 @@ LUT_BB_PARTIAL_ ::= #[
     0x00, 0x00, 0x00, 0x00, 0x00, 0x00
 ]
 
-class WaveshareEPaper2Color213 extends WaveshareEPaper2Color:
+class Waveshare2Color213 extends EPaper2Color:
   flags:
     if four_gray_mode_:
-      return RPC_DISPLAY_FLAG_3_COLOR
+      return FLAG_3_COLOR
     else:
-      return RPC_DISPLAY_FLAG_2_COLOR | RPC_DISPLAY_FLAG_PARTIAL_UPDATES
+      return FLAG_2_COLOR | FLAG_PARTIAL_UPDATES
 
   width := 0
   height := 0

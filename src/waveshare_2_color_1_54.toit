@@ -5,12 +5,10 @@
 // Driver for the two-color Waveshare 200x200 1.54 inch 2 color e-paper display.
 
 import bitmap show *
-import font show *
-import two_color show *
-import .esp32
-import .waveshare_e_paper_2_color
-import .waveshare_e_paper
-import peripherals.rpc show *
+import pixel_display show *
+
+import .e_paper
+import .two_color
 
 FULL_UPDATE_LUT_154_ ::= [
   0x02, 0x02, 0x01, 0x11, 0x12,
@@ -27,18 +25,16 @@ PARTIAL_UPDATE_LUT_154_ ::= [
   0x13, 0x14, 0x44, 0x12, 0x00,
   0x00, 0x00, 0x00, 0x00, 0x00]
 
-class WaveshareEPaper2Color154 extends WaveshareEPaper2Color:
+class Waveshare2Color154 extends EPaper2Color:
   // There are two frame buffers, and when we refresh, it flips which frame
   // buffer we can write into.  After we flipped, we need to update the second
   // frame buffer with the current state.
-  flags -> int:
-    f := RPC_DISPLAY_FLAG_2_COLOR | RPC_DISPLAY_FLAG_PARTIAL_UPDATES
-    return f
+  flags ::= FLAG_2_COLOR | FLAG_PARTIAL_UPDATES
 
-  width := 0
-  height := 0
+  width ::= 200
+  height ::= 200
 
-  constructor device reset busy .width .height:
+  constructor device reset busy:
     super device reset busy
     reset_.set 0
     sleep --ms=10

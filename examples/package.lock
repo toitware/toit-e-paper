@@ -1,0 +1,11 @@
+prefixes:
+  e_paper: ..
+  pixel_display: toit-pixel-display
+packages:
+  ..:
+    path: ..
+    prefixes:
+      pixel_display: toit-pixel-display
+  toit-pixel-display:
+    url: github.com/toitware/toit-pixel-display
+    version: 1.1.0

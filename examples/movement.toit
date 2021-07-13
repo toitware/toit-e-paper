@@ -4,14 +4,15 @@
 
 // This program will prints if the device is moved.
 
-import device
 import peripherals show Accelerometer
 import math
 import job
 import font
-import two_color show TextTexture WHITE BLACK
 import pixel_display show TwoColorPixelDisplay
-import texture show TEXT_TEXTURE_ALIGN_CENTER
+import pixel_display.texture show TEXT_TEXTURE_ALIGN_CENTER
+import pixel_display.two_color show TextTexture WHITE BLACK
+
+import .get_driver
 
 sans ::= font.Font.get "sans10"
 
@@ -68,8 +69,9 @@ mean points/List/*<float>*/ -> float:
   return sum / points.size
 
 screen text/string --with_time/bool=false:
+  driver := get_driver
   // Create graphics context.
-  display ::= TwoColorPixelDisplay "eink"
+  display ::= TwoColorPixelDisplay driver
   try:
     context := display.context --landscape --font=sans --alignment=TEXT_TEXTURE_ALIGN_CENTER --color=BLACK
     // Add text to the display.

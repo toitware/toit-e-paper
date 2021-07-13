@@ -2,13 +2,12 @@
 // Use of this source code is governed by an MIT-style license that can be
 // found in the LICENSE file.
 
-// Driver for the Waveshare e-paper displays.  These are two- or three-color displays.
+// Driver for SPI-connected e-paper displays.  These are two- or three-color displays.
 
-import ..display_driver show *
 import binary
 import bitmap
-import gpio
-import log
+import spi
+import pixel_display show AbstractDriver
 
 PANEL_SETTING_                     ::= 0x00  // PSR
 POWER_SETTING_                     ::= 0x01
@@ -105,11 +104,10 @@ NO_SOFT_RESET_                     ::= 0x01
 FRAME_RATE_100_HZ_                 ::= 0x3a
 FRAME_RATE_50_HZ_                  ::= 0x3c
 
-abstract class WaveshareEPaper extends DisplayDriver:
+abstract class EPaper extends AbstractDriver:
   // Pin numbers.
   reset_ := ?         // Active low reset line.
   busy_ := ?          // From screen to device, low = busy, high = not busy.
-  logger_/log.Logger? := null
 
   cmd_buffer_/ByteArray ::= ByteArray 1
   buffer_/ByteArray
@@ -216,14 +214,14 @@ abstract class WaveshareEPaper extends DisplayDriver:
         with_timeout --ms=5_000:
           busy_.wait_for value
       if e:
-        log_ "Epaper display timed out waiting for busy pin, which is now $busy_.get"
+        print "E-paper display timed out waiting for busy pin, which is now $busy_.get"
         throw e  // Rethrow.
     else:
       sleep --ms=5_000
 
   // Writes part of the canvas to the device.  The canvas is arranged as
   // height/8 strips of width bytes, where each byte represents 8 vertically
-  // stacked pixels.  The Waveshare requires these be transposed so that each
+  // stacked pixels.  The displays require these be transposed so that each
   // line is represented by width/8 consecutive bytes, from top to bottom.
   dump_ xor array width height:
     byte_width := width >> 3
@@ -239,10 +237,3 @@ abstract class WaveshareEPaper extends DisplayDriver:
           transposed[x] = out ^ xor
         send_continued_array transposed
       row += width
-
-  logger= logger/log.Logger?:
-    logger_ = logger
-
-  log_ str/string:
-    if logger_:
-      logger_.debug str
