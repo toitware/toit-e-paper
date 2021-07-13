@@ -12,8 +12,8 @@ class EPaper3Color extends EPaper:
   width := 0
   height := 0
   // In software terms these displays support partial update, ie you don't have
-  // to send all the data every time.  But once they has the data it is no faster
-  // doing a partial vs a full update.
+  // to send all the data every time.  But once they have the data they are not
+  // faster doing a partial vs a full update.
   flags ::= FLAG_3_COLOR | FLAG_PARTIAL_UPDATES
 
   constructor device reset busy .width .height:
