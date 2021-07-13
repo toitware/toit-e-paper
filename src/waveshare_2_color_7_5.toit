@@ -7,15 +7,13 @@
 // TODO: Should return to deep sleep after a while to avoid damage to the panel.
 
 import bitmap show *
-import font show *
-import two_color show *
-import .esp32
-import .waveshare_e_paper
-import .waveshare_e_paper_2_color
-import peripherals.rpc show *
+import pixel_display show * 
 
-class WaveshareEPaper2Color75 extends WaveshareEPaper2Color:
-  flags ::= RPC_DISPLAY_FLAG_2_COLOR
+import .e_paper
+import .two_color
+
+class Waveshare2Color75 extends EPaper2Color:
+  flags ::= FLAG_2_COLOR
   width := 0
   height := 0
 

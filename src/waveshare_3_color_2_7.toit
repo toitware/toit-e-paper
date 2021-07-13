@@ -5,16 +5,13 @@
 // Driver for the Waveshare 2.7 inch e-paper.  This is a 264x176 three-color
 // display.
 
-import font
-import .esp32
-import .waveshare_e_paper_3_color
+import .three_color
 
+WAVESHARE_E_PAPER_2_7_WIDTH_ ::= 176
+WAVESHARE_E_PAPER_2_7_HEIGHT_ ::= 264
 
-WAVESHARE_E_PAPER_2_7_WIDTH ::= 176
-WAVESHARE_E_PAPER_2_7_HEIGHT ::= 264
-
-class WaveshareEPaper3Color27 extends WaveshareEPaper3Color:
+class Waveshare3Color27 extends EPaper3Color:
   constructor device reset busy:
-    w := WAVESHARE_E_PAPER_2_7_WIDTH
-    h := WAVESHARE_E_PAPER_2_7_HEIGHT
+    w := WAVESHARE_E_PAPER_2_7_WIDTH_
+    h := WAVESHARE_E_PAPER_2_7_HEIGHT_
     super device reset busy w h

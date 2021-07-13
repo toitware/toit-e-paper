@@ -2,21 +2,19 @@
 // Use of this source code is governed by an MIT-style license that can be
 // found in the LICENSE file.
 
-// Driver for the Waveshare e-paper displays.  These are three-color displays.
+// Driver for three-color e-paper displays.
 
-import font show *
-import three_color show *
-import .esp32
-import .waveshare_e_paper
-import peripherals.rpc show *
+import pixel_display show *
 
-class WaveshareEPaper3Color extends WaveshareEPaper:
+import .e_paper
+
+class EPaper3Color extends EPaper:
   width := 0
   height := 0
-  // In software terms this display supports partial update, ie you don't have
-  // to send all the data every time.  But once it has the data it is no faster
-  // doing a partial vs a full update.
-  flags ::= RPC_DISPLAY_FLAG_3_COLOR | RPC_DISPLAY_FLAG_PARTIAL_UPDATES
+  // In software terms these displays support partial update, ie you don't have
+  // to send all the data every time.  But once they have the data they are not
+  // faster doing a partial vs a full update.
+  flags ::= FLAG_3_COLOR | FLAG_PARTIAL_UPDATES
 
   constructor device reset busy .width .height:
     super device reset busy
