@@ -1,0 +1,6 @@
+dependencies:
+  e_paper:
+    path: ..
+  pixel_display:
+    url: github.com/toitware/toit-pixel-display
+    version: ^1.6.0
