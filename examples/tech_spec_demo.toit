@@ -8,7 +8,7 @@ import peripherals.thp show *
 import pixel_display show *
 
 import font show *
-import font.x11_100dpi.sans.sans_18_bold as sans_18_bold
+import font_x11_adobe.sans_18_bold
 import pixel_display.texture show *
 import pixel_display.two_color show *
 
