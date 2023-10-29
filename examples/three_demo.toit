@@ -6,6 +6,8 @@ import e_paper.gooddisplay_3_color_2_7 show *
 
 import font
 import gpio
+import serial.protocols.spi
+
 import pixel_display show ThreeColorPixelDisplay
 import pixel_display.texture show TEXT_TEXTURE_ALIGN_CENTER
 import pixel_display.three_color show TextTexture WHITE BLACK RED
@@ -17,13 +19,25 @@ sans ::= font.Font.get "sans10"
 // Pins
 BUSY ::= 16
 RESET ::= 4
+DC ::= 2
+CS ::= 14
+CLOCK ::= 12
+DIN ::= 13
 
 main:
-  device := get_device
+  bus := spi.Bus
+    --mosi=gpio.Pin DIN
+    --clock=gpio.Pin CLOCK
+
+  device := bus.device
+    --cs=gpio.Pin CS
+    --dc=gpio.Pin DC
+    --frequency=10_000_000
+
   driver := Gooddisplay3Color27
     device
-    gpio.Pin.out RESET
-    gpio.Pin.in BUSY
+    --reset=gpio.Pin.out RESET
+    --busy=gpio.Pin.in BUSY
   display := ThreeColorPixelDisplay driver
 
   // Create graphics context.

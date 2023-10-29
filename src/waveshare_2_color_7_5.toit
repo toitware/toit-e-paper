@@ -7,6 +7,9 @@
 // TODO: Should return to deep sleep after a while to avoid damage to the panel.
 
 import bitmap show *
+import gpio
+import serial.protocols.spi
+
 import pixel_display show * 
 
 import .e_paper
@@ -17,25 +20,23 @@ class Waveshare2Color75 extends EPaper2Color:
   width := 0
   height := 0
 
-  constructor device reset busy .width/int .height/int flipped/bool:
-    super device reset busy
-    reset_.set 0
-    sleep --ms=1
-    reset_.set 1
-    sleep --ms=1
-    wait_for_busy 1
+  constructor device/spi.Device
+      .width/int .height/int
+      --reset/gpio.Pin?
+      --busy/gpio.Pin?:
+    super device --reset=reset --busy=busy
+
+  initialize -> none:
+    wait_for_busy
     send POWER_SETTING_ 0x37 0x00
     panel_setting := RESOLUTION_600_448_  // Overridden later by explicit resolution setting?
-    if flipped:
-      panel_setting |= FLIP_X_
-      panel_setting |= FLIP_Y_
     panel_setting |= DC_DC_CONVERTER_ON_
     panel_setting |= NO_SOFT_RESET_
     panel_setting |= LUT_FROM_REGISTER_
     send PANEL_SETTING_ panel_setting //0x08
     send BOOSTER_SOFT_START_ 0xc7 0xcc 0x28
     send POWER_ON_
-    wait_for_busy 1
+    wait_for_busy
 
     send PLL_CONTROL_ FRAME_RATE_50_HZ_
     send TEMPERATURE_SENSOR_CALIBRATION_ 0x00
@@ -48,7 +49,7 @@ class Waveshare2Color75 extends EPaper2Color:
 
     send 0xe5 0x03   // Flash mode
 
-    wait_for_busy 1
+    wait_for_busy
 
   start_full_update speed/int -> none:
     send DATA_START_TRANSMISSION_1_
@@ -72,4 +73,4 @@ class Waveshare2Color75 extends EPaper2Color:
 
   refresh left/int top/int right/int bottom/int ->none:
     send DISPLAY_REFRESH_
-    wait_for_busy 1
+    wait_for_busy

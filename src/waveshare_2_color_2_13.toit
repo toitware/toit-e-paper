@@ -11,6 +11,9 @@
 // Busy pin is 0=busy 1=notbusy
 
 import bitmap show *
+import gpio
+import serial.protocols.spi
+
 import pixel_display show *
 
 import .e_paper
@@ -181,8 +184,14 @@ class Waveshare2Color213 extends EPaper2Color:
   four_gray_mode_ := false
   speed_ := 50
 
-  constructor device reset busy .width .height:
-    super device reset busy
+  constructor device/spi.Device
+      .width
+      .height
+      --reset/gpio.Pin?
+      --busy/gpio.Pin?:
+    super device
+        --reset=reset
+        --busy=busy
 
   set_mode mode:
     if mode == "default":
@@ -196,11 +205,7 @@ class Waveshare2Color213 extends EPaper2Color:
     switch_off_
 
   init_two_color_:
-    if reset_:
-      reset_.set 0
-      sleep --ms=10
-      reset_.set 1
-      sleep --ms=10
+    reset --ms=10
 
     send_array POWER_SETTING_ #[
       0x03,  // Internal DC/DC converter for power.
@@ -227,14 +232,10 @@ class Waveshare2Color213 extends EPaper2Color:
 
   check_status_:
     send GET_STATUS_
-    wait_for_busy 1
+    wait_for_busy
 
   init_grayscale_:
-    if reset_:
-      reset_.set 0
-      sleep --ms=10
-      reset_.set 1
-      sleep --ms=10
+    reset --ms=10
 
     send_array POWER_SETTING_ #[
       0x03,  // Internal DC/DC converter for power.
@@ -372,7 +373,7 @@ class Waveshare2Color213 extends EPaper2Color:
     sleep --ms=1
     check_status_
 
-    wait_for_busy 1                             // Wait for the busy line to be not busy
+    wait_for_busy                               // Wait for the busy line to be not busy
     send DEEP_SLEEP_ DEEP_SLEEP_CHECK_          // 0x07 0xa5
 
   set_full_registers_:

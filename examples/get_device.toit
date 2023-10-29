@@ -26,6 +26,6 @@ get_device -> AbstractDriver:
   reset := gpio.Pin.out RESET
   busy := gpio.Pin.in BUSY --pull_down
 
-  driver ::= Waveshare2Color154 device reset busy 
+  driver ::= Waveshare2Color154 device --reset=reset --busy=busy 
 
   return driver

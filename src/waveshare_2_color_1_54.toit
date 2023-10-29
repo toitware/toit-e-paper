@@ -5,6 +5,9 @@
 // Driver for the two-color Waveshare 200x200 1.54 inch 2 color e-paper display.
 
 import bitmap show *
+import gpio
+import serial.protocols.spi
+
 import pixel_display show *
 
 import .e_paper
@@ -34,13 +37,15 @@ class Waveshare2Color154 extends EPaper2Color:
   width ::= 200
   height ::= 200
 
-  constructor device reset busy:
-    super device reset busy
-    reset_.set 0
-    sleep --ms=10
-    reset_.set 1
-    sleep --ms=10
+  constructor device/spi.Device
+      --reset/gpio.Pin?
+      --busy/gpio.Pin?:
+    super device
+        --reset=reset
+        --busy=busy
+        --busy_active_high
 
+  initialize -> none:
     send_le DRIVER_OUTPUT_154_ height height >> 8
     send_ 1 0                                                         // GD = 0; SM = 0; TB = 0;
     send BOOSTER_SOFT_START_154_ 0xd7 0xd6 0x9d
@@ -76,17 +81,17 @@ class Waveshare2Color154 extends EPaper2Color:
     bottom--
     send SET_RAM_X_RANGE_154_ (left >> 3) (right >> 3)
     send_le SET_RAM_Y_RANGE_154_ top bottom
-    wait_for_busy 0
+    wait_for_busy
     send SET_RAM_X_ADDRESS_154_ (left >> 3)
     send_le SET_RAM_Y_ADDRESS_154_ top
-    wait_for_busy 0
+    wait_for_busy
     send WRITE_RAM_154_
     dump_ 0xff pixels canvas_width (1 + bottom - top)
     send NOP_154_
-    wait_for_busy 0
+    wait_for_busy
 
   refresh x/int y/int w/int h/int -> none:
     send DISPLAY_UPDATE_2_154_ 0xc4
     send MASTER_ACTIVATION_154_
     send NOP_154_
-    wait_for_busy 0
+    wait_for_busy
