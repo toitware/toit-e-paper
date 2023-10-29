@@ -1,8 +1,10 @@
-// Copyright (C) 2020 Toitware ApS. All rights reserved.
-// Use of this source code is governed by an MIT-style license that can be
-// found in the LICENSE file.
+// Copyright (C) 2023 Toitware ApS. All rights reserved.
+// Use of this source code is governed by a Zero-Clause BSD license that can
+// be found in the EXAMPLES_LICENSE file.
 
 // This program will prints if the device is moved.
+
+// This program has not been ported from Toit 1 yet.
 
 import peripherals show Accelerometer
 import math
@@ -12,7 +14,7 @@ import pixel_display show TwoColorPixelDisplay
 import pixel_display.texture show TEXT_TEXTURE_ALIGN_CENTER
 import pixel_display.two_color show TextTexture WHITE BLACK
 
-import .get_driver
+import .get_device
 
 sans ::= font.Font.get "sans10"
 
@@ -69,7 +71,7 @@ mean points/List/*<float>*/ -> float:
   return sum / points.size
 
 screen text/string --with_time/bool=false:
-  driver := get_driver
+  driver := get_device
   // Create graphics context.
   display ::= TwoColorPixelDisplay driver
   try:

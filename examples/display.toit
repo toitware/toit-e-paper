@@ -7,12 +7,12 @@ import pixel_display show TwoColorPixelDisplay
 import pixel_display.texture show TEXT_TEXTURE_ALIGN_CENTER
 import pixel_display.two_color show TextTexture WHITE BLACK
 
-import .get_driver
+import .get_device
 
 sans ::= font.Font.get "sans10"
 
 main:
-  driver := get_driver
+  driver := get_device
   display := TwoColorPixelDisplay driver
 
   // Create graphics context.
