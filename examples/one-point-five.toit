@@ -45,9 +45,9 @@ main:
 
   display.draw --speed=0
 
-  sleep --ms=5000
+  sleep --ms=3000
 
-  driver.deep_sleep
+  driver.reset
 
   display.background = BLACK
 
@@ -63,6 +63,10 @@ main:
     display.draw --speed=0
 
   print "Full update $duration"
+
+  driver.deep_sleep
+  sleep --ms=1000
+  driver.reset  // Wake up.
 
   world.text = "World"
   // Update display.
