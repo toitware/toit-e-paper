@@ -69,6 +69,7 @@ MASTER_ACTIVATION_154_             ::= 0x20
 DISPLAY_UPDATE_1_154_              ::= 0x21
 DISPLAY_UPDATE_2_154_              ::= 0x22
 WRITE_RAM_154_                     ::= 0x24
+WRITE_RAM_RED_154_                 ::= 0x26
 WRITE_VCOM_154_                    ::= 0x2c
 WRITE_LUT_154_                     ::= 0x32
 WRITE_DUMMY_LINE_PERIOD_154_       ::= 0x3a

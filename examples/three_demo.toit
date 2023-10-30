@@ -12,8 +12,6 @@ import pixel_display show ThreeColorPixelDisplay
 import pixel_display.texture show TEXT_TEXTURE_ALIGN_CENTER
 import pixel_display.three_color show TextTexture WHITE BLACK RED
 
-import .get_device
-
 sans ::= font.Font.get "sans10"
 
 // Pins
