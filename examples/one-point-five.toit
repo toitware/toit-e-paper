@@ -47,6 +47,8 @@ main:
 
   sleep --ms=5000
 
+  driver.deep_sleep
+
   display.background = BLACK
 
   // Create graphics context.

@@ -58,9 +58,8 @@ class Waveshare2Color154 extends EPaper2Color:
     too long.
   You must call $reset to wake it up.
   */
-  deep-sleep -> none:
-    send DEEP_SLEEP_MODE_154_
-    wait_for_busy
+  deep_sleep -> none:
+    send DEEP_SLEEP_MODE_154_ 1
 
   /**
   Creates a new driver for the Waveshare 1.54 inch 2 color e-paper display.
