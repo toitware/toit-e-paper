@@ -30,7 +30,7 @@ class EPaper3Color extends EPaper:
         --busy=busy
         --busy_active_high=busy_active_high
 
-  initiallize -> none:
+  initialize -> none:
     wait_for_busy
     send_array BOOSTER_SOFT_START_ [0x07, 0x07, 0x04]
     send 0xf8 0x60 0xa5

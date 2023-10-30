@@ -54,7 +54,7 @@ class Waveshare2Color75 extends EPaper2Color:
   start_full_update speed/int -> none:
     send DATA_START_TRANSMISSION_1_
 
-  draw_2_color left/int top/int right/int bottom/int pixels/ByteArray -> none:
+  draw_two_color left/int top/int right/int bottom/int pixels/ByteArray -> none:
     // BUG: https://github.com/toitware/toit/issues/2939.
     throw "unimplemented"
     /*

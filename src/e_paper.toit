@@ -262,3 +262,7 @@ abstract class EPaper extends AbstractDriver:
           transposed[x] = out ^ xor
         send_continued_array transposed
       row += width
+
+  abstract commit left/int top/int right/int bottom/int -> none
+
+  clean x/int y/int right/int bottom/int:

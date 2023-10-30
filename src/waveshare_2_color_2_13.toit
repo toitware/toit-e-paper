@@ -295,7 +295,7 @@ class Waveshare2Color213 extends EPaper2Color:
     set_partial_registers_
     update_in_progress_ = PARTIAL_UPDATE_IN_PROGRESS_
 
-  draw_2_color left/int top/int right/int bottom/int pixels/ByteArray -> none:
+  draw_two_color left/int top/int right/int bottom/int pixels/ByteArray -> none:
     draw_2_color_implementation_ left top right bottom pixels
 
   draw_2_color_implementation_ left/int top/int right/int bottom/int pixels/ByteArray -> none:
