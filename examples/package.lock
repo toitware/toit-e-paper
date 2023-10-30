@@ -9,9 +9,11 @@ packages:
       pixel_display: toit-pixel-display
   pkg-font-x11-adobe:
     url: github.com/toitlang/pkg-font-x11-adobe
+    name: font_x11_adobe
     version: 0.1.0
     hash: f844400722165252148f087cdf189abab0a47f3d
   toit-pixel-display:
     url: github.com/toitware/toit-pixel-display
-    version: 1.6.0
-    hash: 39de82f680e27961e39ca24ba94520f21759370c
+    name: pixel_display
+    version: 1.6.1
+    hash: 61693447fcf73e7dd4044780fd7991c2d371b7ec
