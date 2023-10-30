@@ -32,18 +32,14 @@ PARTIAL_UPDATE_LUT_154_ ::= [
 /**
 A driver for version 1 of the Waveshare 1.54 inch 2 color e-paper display.
 This display has a resolution of 200x200 pixels.
-It supports partial updates, but they are not faster than full updates.
-  However they do flicker less.  After a few partial updates the unchanged
-  part of the image begins to fade to gray.
+It supports partial updates, which are both faster than full updates and
+  also flicker less.  After a few partial updates the image can get a bit
+  cloudy, and then a full update is needed to restore the image quality.
 Doing updates with "display.draw --speed=0" will make a complete update, which
-  gets the black colors to be more saturated again.  This option is named for a
-  speed-quality tradeoff that doesn't really apply for this display since the
-  partial update modes are not faster.
+  gets the black colors to be more saturated again.  It is also said to be
+  good for the health of the display to do a full update every now and then.
 */
 class Waveshare2Color154 extends EPaper2Color:
-  // There are two frame buffers, and when we refresh, it flips which frame
-  // buffer we can write into.  After we flipped, we need to update the second
-  // frame buffer with the current state.
   flags ::= FLAG_2_COLOR | FLAG_PARTIAL_UPDATES
 
   width ::= 200
