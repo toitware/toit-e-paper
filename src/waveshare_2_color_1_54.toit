@@ -77,13 +77,15 @@ class Waveshare2Color154 extends EPaper2Color:
       --auto_reset/bool=true
       --auto_initialize/bool=true:
     if partial_updates:
-      //flags = FLAG_2_COLOR | FLAG_PARTIAL_UPDATES
+      flags = FLAG_2_COLOR | FLAG_PARTIAL_UPDATES
     else:
-      //flags = FLAG_2_COLOR
+      flags = FLAG_2_COLOR
     super device
         --reset=reset
         --busy=busy
         --busy_active_high
+    if auto_reset: reset
+    if auto_initialize: initialize
 
   reset --ms/int=10:
     super --ms=ms
@@ -93,62 +95,30 @@ class Waveshare2Color154 extends EPaper2Color:
     // https://github.com/waveshareteam/e-Paper/blob/master/Arduino/epd1in54/epd1in54.cpp
     control_byte := 0   // GD = 0; SM = 0; TB = 0.
     send DRIVER_OUTPUT_154_ (height - 1) ((height - 1) >> 8) control_byte
-    wait_for_busy
     send BOOSTER_SOFT_START_154_ 0xd7 0xd6 0x9d
-    wait_for_busy
     send WRITE_VCOM_154_ 0xa8                      // VCOM 7C
-    wait_for_busy
     send WRITE_DUMMY_LINE_PERIOD_154_ 0x1a         // 4 dummy lines per gate.
-    wait_for_busy
     send SET_GATE_TIME_154_ 0x08                   // 2 us per line.
-    wait_for_busy
     send DATA_ENTRY_MODE_154_ 3                    // X increment, Y increment.
-    wait_for_busy
-    print "Setting full update LUT"
     send_array WRITE_LUT_154_ FULL_UPDATE_LUT_154_
-    init_image_
-    wait_for_busy
 
   start_partial_update speed/int -> none:
-    print "Setting partial update LUT"
     send_array WRITE_LUT_154_ PARTIAL_UPDATE_LUT_154_
-    wait_for_busy
     saved_updates = []
     currently_partial_update_ = true
 
   start_full_update speed/int -> none:
-    print "Setting full update LUT"
     send_array WRITE_LUT_154_ FULL_UPDATE_LUT_154_
-    wait_for_busy
     saved_updates = []
     currently_partial_update_ = false
 
   set_memory_area_ left/int top/int right/int bottom/int -> none:
     send    SET_RAM_X_RANGE_154_ (left >> 3) ((right - 1) >> 3)
     send_le SET_RAM_Y_RANGE_154_ top         (bottom - 1)
-    wait_for_busy
 
   set_memory_pointer x/int y/int -> none:
     send    SET_RAM_X_ADDRESS_154_ (x >> 3)
     send_le SET_RAM_Y_ADDRESS_154_ y
-    wait_for_busy
-
-  init_image_ -> none:
-    set_memory_area_ 0 0 width height
-    set_memory_pointer 0 0
-    wait_for_busy
-    send WRITE_RAM_154_
-    send_repeated_bytes (width * height >> 3) 0
-    send NOP_154_
-    wait_for_busy
-    set_memory_area_ 0 0 width height
-    set_memory_pointer 0 0
-    wait_for_busy
-    send WRITE_RAM_RED_154_
-    send_repeated_bytes (width * height >> 3) 0
-    send NOP_154_
-    wait_for_busy
-    commit 0 0 width height
 
   draw_two_color left/int top/int right/int bottom/int pixels/ByteArray -> none:
     redraw_rect_ left top right bottom pixels
@@ -160,17 +130,13 @@ class Waveshare2Color154 extends EPaper2Color:
     redraw_rect_ left top right bottom pixels
 
   redraw_rect_ left/int top/int right/int bottom/int pixels/ByteArray -> none:
-    print "redraw_rect_: $left $top $right $bottom"
     saved_updates.add [left, top, right, bottom, pixels.copy]
     send_to_device_ left top right bottom pixels WRITE_RAM_154_
-    wait_for_busy
 
   send_to_device_ left/int top/int right/int bottom/int pixels/ByteArray -> none command/int:
     canvas_width := right - left
     set_memory_area_ left top right bottom
-    wait_for_busy
     set_memory_pointer left top
-    wait_for_busy
     send command
     dump_ 0xff pixels canvas_width (bottom - top)
     send NOP_154_
@@ -190,9 +156,7 @@ class Waveshare2Color154 extends EPaper2Color:
       send DISPLAY_UPDATE_2_154_ 0xc7
     else:
       send DISPLAY_UPDATE_2_154_ 0xc4
-    wait_for_busy
     send MASTER_ACTIVATION_154_
-    wait_for_busy
     send NOP_154_
     wait_for_busy
     saved_updates.do:
