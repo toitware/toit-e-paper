@@ -8,6 +8,7 @@ import gpio
 import serial.protocols.spi
 
 import pixel_display show *
+import pixel_display.four_gray
 
 import .e_paper
 

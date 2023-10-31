@@ -58,6 +58,8 @@ TURN_OFF_FLASH_                    ::= 0xb9
 // Check code for deep sleep command.
 DEEP_SLEEP_CHECK_                  ::= 0xa5
 
+POWER_OPTIMIZATION_                ::= 0xf8
+
 DRIVER_OUTPUT_154_                 ::= 0x01
 BOOSTER_SOFT_START_154_            ::= 0x0c
 GATE_SCAN_START_POSITION_154_      ::= 0x0f
@@ -82,10 +84,10 @@ SET_RAM_Y_ADDRESS_154_             ::= 0x4f
 NOP_154_                           ::= 0xff
 
 // For panel setting on 3-color panels.
-_2_COLOR                           ::= 0x10
-_3_COLOR                           ::= 0x00
+THREE_COLOR_                       ::= 0x00
+TWO_COLOR_                         ::= 0x10
 
-// For panel setting on 7.5 inch 2 color panel
+// For panel setting on 7.5 inch 2 color panel.
 RESOLUTION_640_480_                ::= 0x00
 RESOLUTION_600_450_                ::= 0x40
 RESOLUTION_640_448_                ::= 0x80
@@ -106,6 +108,70 @@ NO_SOFT_RESET_                     ::= 0x01
 // For PLL control on 7.5 inch 2 color panel
 FRAME_RATE_100_HZ_                 ::= 0x3a
 FRAME_RATE_50_HZ_                  ::= 0x3c
+
+// For power setting on the 2.9 inch 4 gray panel.
+// Register POWER_SETTING_ (0x01), byte 0, page 27, GDEW027W3-2.pdf.
+EXTERNAL_POWER_VGH_VGL_            ::= 0x00
+INTERNAL_POWER_VGH_VGL_            ::= 0x01
+EXTERNAL_POWER_VDH_VDL_            ::= 0x00
+INTERNAL_POWER_VDH_VDL_            ::= 0x02
+
+// Register POWER_SETING_ (0x01), byte 1, page 27, GDEW027W3-2.pdf.
+VCOM_VOLTAGE_ADDITIVE_             ::= 0x00  // VCOMH=VDH+VCOMDC, VCOML=VHL+VCOMDC.
+VCOM_VOLTAGE_VGHL_                 ::= 0x04  // VCOMH=VGH, VCOML=VGL.
+VCOM_VGHL_LV_MINUS_16_V_           ::= 0x00  // Recommended.
+VCOM_VGHL_LV_MINUS_15_V_           ::= 0x01
+VCOM_VGHL_LV_MINUS_14_V_           ::= 0x02
+VCOM_VGHL_LV_MINUS_13_V_           ::= 0x03
+
+// Register POWER_SETING_ (0x01), bytes 2-4, page 27, GDEW027W3-2.pdf.
+// 10V recommended for high voltage, black/white pixel.
+// -10V recommended for low voltage, black/white pixel.
+// 3V recommended for high voltage, red pixel.
+VCOM_VDHL_BASE_                    ::= 2400    // Zero means 2.4V.
+VCOM_VDHL_STEP_                    ::= 200     // 0.2V steps.
+VCOM_VDHL_10_V_                    ::= 0x26    // ±10 volts.
+VCOM_VDHL_11_V_                    ::= 0x2b    // ±11 volts.
+VCOM_VDHR_3_V_                     ::= 0x03    // 3 volts.
+VCOM_VDHR_4_2_V_                   ::= 0x09    // 4.2 volts.
+VCOM_VDHL_MAX_                     ::= 11000   // 11V maximum.
+
+// For VCOM DC setting on the 2.9 inch 4 gray panel.
+// Register VCOM_DC_ (0x82), page 40, GDEW027W3-2.pdf.
+VCOM_DC_BASE_                      ::= 100     // -100 millivolts.
+VCOM_DC_STEP_                      ::= 50      // 50mV steps.
+VCOM_DC_MAX_                       ::= 4000    // -4V maximum.
+VCOM_DC_MINUS_1_V_                 ::= 0x12    // -1V recommended.
+
+// For panel setting on the 2.9 inch 4 gray panel.
+RESOLUTION_320_300_                ::= 0x00
+RESOLUTION_300_200_                ::= 0x40
+RESOLUTION_296_160_                ::= 0x80  // Datasheet recommends w/ 296x176.
+RESOLUTION_296_128_                ::= 0xc0
+PANEL_BWR_                         ::= 0x00  // Black-white-red mode (also used for gray).
+PANEL_BW_                          ::= 0x10  // Black-white mode.
+
+// For booster soft start settings of the 2.9 inch 4 gray panel.
+SOFT_START_10_MS_                  ::= 0x00      // Recommended.
+SOFT_START_20_MS_                  ::= 0x40
+SOFT_START_30_MS_                  ::= 0x80
+SOFT_START_100_MS_                 ::= 0xc0
+SOFT_START_DRIVING_STRENGTH_1_     ::= 0x00
+SOFT_START_DRIVING_STRENGTH_2_     ::= 0x08
+SOFT_START_DRIVING_STRENGTH_3_     ::= 0x10  // Recommended.
+SOFT_START_DRIVING_STRENGTH_4_     ::= 0x18
+SOFT_START_DRIVING_STRENGTH_5_     ::= 0x20
+SOFT_START_DRIVING_STRENGTH_6_     ::= 0x28
+SOFT_START_DRIVING_STRENGTH_7_     ::= 0x30
+SOFT_START_DRIVING_STRENGTH_8_     ::= 0x38
+SOFT_START_MINIMUM_OFF_GDR_270_NS_ ::= 0x00
+SOFT_START_MINIMUM_OFF_GDR_340_NS_ ::= 0x01
+SOFT_START_MINIMUM_OFF_GDR_400_NS_ ::= 0x02
+SOFT_START_MINIMUM_OFF_GDR_540_NS_ ::= 0x03
+SOFT_START_MINIMUM_OFF_GDR_800_NS_ ::= 0x04
+SOFT_START_MINIMUM_OFF_GDR_1540_NS_ ::= 0x05
+SOFT_START_MINIMUM_OFF_GDR_3340_NS_ ::= 0x06
+SOFT_START_MINIMUM_OFF_GDR_6580_NS_ ::= 0x07  // Recommended.
 
 abstract class EPaper extends AbstractDriver:
   device_/spi.Device := ?

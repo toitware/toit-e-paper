@@ -11,7 +11,6 @@ import serial.protocols.spi
 import pixel_display show *
 
 import .e_paper
-import .two_color
 
 FULL_UPDATE_LUT_154_ ::= [
   0x02, 0x02, 0x01, 0x11, 0x12,
@@ -39,7 +38,7 @@ Doing updates with "display.draw --speed=0" will make a complete update, which
   gets the black colors to be more saturated again.  It is also said to be
   good for the health of the display to do a full update every now and then.
 */
-class Waveshare2Color154 extends EPaper2Color:
+class Waveshare2Color154 extends EPaper:
   flags ::= FLAG_2_COLOR | FLAG_PARTIAL_UPDATES
 
   width ::= 200
