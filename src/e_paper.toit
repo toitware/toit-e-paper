@@ -1,4 +1,4 @@
-// Copyright (C) 2018 Toitware ApS. All rights reserved.
+// Copyright (C) 2023 Toitware ApS. All rights reserved.
 // Use of this source code is governed by an MIT-style license that can be
 // found in the LICENSE file.
 
@@ -6,7 +6,9 @@
 
 import binary
 import bitmap
-import spi
+import gpio
+import serial.protocols.spi
+
 import pixel_display show AbstractDriver
 
 PANEL_SETTING_                     ::= 0x00  // PSR
@@ -67,6 +69,7 @@ MASTER_ACTIVATION_154_             ::= 0x20
 DISPLAY_UPDATE_1_154_              ::= 0x21
 DISPLAY_UPDATE_2_154_              ::= 0x22
 WRITE_RAM_154_                     ::= 0x24
+WRITE_RAM_RED_154_                 ::= 0x26
 WRITE_VCOM_154_                    ::= 0x2c
 WRITE_LUT_154_                     ::= 0x32
 WRITE_DUMMY_LINE_PERIOD_154_       ::= 0x3a
@@ -105,16 +108,27 @@ FRAME_RATE_100_HZ_                 ::= 0x3a
 FRAME_RATE_50_HZ_                  ::= 0x3c
 
 abstract class EPaper extends AbstractDriver:
+  device_/spi.Device := ?
   // Pin numbers.
-  reset_ := ?         // Active low reset line.
-  busy_ := ?          // From screen to device, low = busy, high = not busy.
+  reset_/gpio.Pin? := ?               // Reset line.
+  reset_active_high_/bool
+  busy_/gpio.Pin? := ?                // From screen to device, active = busy, not active = not busy.
+  busy_active_high_/bool
 
   cmd_buffer_/ByteArray ::= ByteArray 1
   buffer_/ByteArray
 
-  device_ := ?
+  constructor .device_
+      --reset/gpio.Pin?
+      --reset_active_high/bool=false
+      --busy/gpio.Pin?
+      --busy_active_high/bool=false:
 
-  constructor .device_ .reset_ .busy_:
+    reset_ = reset
+    reset_active_high_ = reset_active_high
+    busy_ = busy
+    busy_active_high_ = busy_active_high
+
     // Also used for sending large repeated arrays - speed vs mem tradeoff.
     buffer_ = ByteArray 128
 
@@ -123,6 +137,17 @@ abstract class EPaper extends AbstractDriver:
 
     if busy_:
       busy_.config --input
+
+  reset --ms/int=1 -> none:
+    if reset_:
+      if reset_active_high_:
+        reset_.set 1
+        sleep --ms=ms
+      reset_.set 0
+      sleep --ms=ms
+      if not reset_active_high_:
+        reset_.set 1
+        sleep --ms=ms
 
   send command:
     send_ 0 command
@@ -208,8 +233,9 @@ abstract class EPaper extends AbstractDriver:
     binary.BIG_ENDIAN.put_uint16 buffer_ 6 h
     send_array command buffer_ --to=8
 
-  wait_for_busy value:
+  wait_for_busy:
     if busy_:
+      value := busy_active_high_ ? 0 : 1
       e := catch:
         with_timeout --ms=5_000:
           busy_.wait_for value
@@ -237,3 +263,7 @@ abstract class EPaper extends AbstractDriver:
           transposed[x] = out ^ xor
         send_continued_array transposed
       row += width
+
+  abstract commit left/int top/int right/int bottom/int -> none
+
+  clean x/int y/int right/int bottom/int:

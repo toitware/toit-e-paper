@@ -1,8 +1,8 @@
-// Copyright (C) 2018 Toitware ApS. All rights reserved.
+// Copyright (C) 2023 Toitware ApS. All rights reserved.
 // Use of this source code is governed by an MIT-style license that can be
 // found in the LICENSE file.
 
-// Driver for three-color e-paper displays.
+// Driver for e-paper display with four gray levels.
 
 import gpio
 import serial.protocols.spi
@@ -11,18 +11,17 @@ import pixel_display show *
 
 import .e_paper
 
-class EPaper3Color extends EPaper:
+
+class EPaper4Grey extends EPaper:
   width := 0
   height := 0
-  // In software terms these displays support partial update, ie you don't have
-  // to send all the data every time.  But once they have the data they are not
-  // faster doing a partial vs a full update.
-  flags ::= FLAG_3_COLOR | FLAG_PARTIAL_UPDATES
+  flags ::= FLAG_4_COLOR | FLAG_PARTIAL_UPDATES
 
-  constructor device/spi.Device .width .height
-      --reset/gpio.Pin?
+  constructor device/spi.Device
+      .width .height
+      --reset/gpio.Pin?=null
       --reset_active_high/bool=false
-      --busy/gpio.Pin?
+      --busy/gpio.Pin?=null
       --busy_active_high/bool=false:
     super device
         --reset=reset
@@ -59,6 +58,5 @@ class EPaper3Color extends EPaper:
     // Refresh.
     sleep --ms=1
     wait_for_busy
-    // No support for partial refresh on three-color devices.
     send DISPLAY_REFRESH_
     wait_for_busy

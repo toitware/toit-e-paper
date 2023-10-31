@@ -2,23 +2,23 @@
 // Use of this source code is governed by an MIT-style license that can be
 // found in the LICENSE file.
 
-// Driver for the Gooddisplay 2.7 inch e-paper.  This is a 264x176 three-color
-// display.
+// Driver for the Waveshare 2.9 inch e-paper.  This is a 296x128 two-color
+// display as used in the Adafruit MagTag.
 
 import gpio
 import serial.protocols.spi
 
-import .three_color
+import .four_gray
 
-GOODDISPLAY_E_PAPER_2_7_WIDTH_ ::= 176
-GOODDISPLAY_E_PAPER_2_7_HEIGHT_ ::= 264
+WAVESHARE_E_PAPER_2_9_WIDTH_ ::= 296
+WAVESHARE_E_PAPER_2_9_HEIGHT_ ::= 128
 
-class Gooddisplay3Color27 extends EPaper3Color:
+class Waveshare4Gray29 extends EPaper4Grey:
   constructor device/spi.Device
       --reset/gpio.Pin?
       --busy/gpio.Pin?:
-    w := GOODDISPLAY_E_PAPER_2_7_WIDTH_
-    h := GOODDISPLAY_E_PAPER_2_7_HEIGHT_
+    w := WAVESHARE_E_PAPER_2_9_WIDTH_
+    h := WAVESHARE_E_PAPER_2_9_HEIGHT_
     super device w h
         --reset=reset
         --busy=busy
