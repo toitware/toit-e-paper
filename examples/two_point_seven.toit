@@ -29,7 +29,7 @@ main:
   device := bus.device
     --cs=gpio.Pin CS
     --dc=gpio.Pin DC
-    --frequency=10_000_000
+    --frequency=2_000_000
 
   reset := gpio.Pin.out RESET
   busy := gpio.Pin.in BUSY --pull_down
@@ -53,25 +53,3 @@ main:
     display.draw --speed=0
 
   print "Full update $duration"
-
-  world.text = "World"
-  // Update display.
-  duration = Duration.of:
-    display.draw --speed=50
-
-  print "50% update $duration"
-
-  10.repeat:
-    world.text = it.stringify
-    // Update display.
-    duration = Duration.of:
-      display.draw --speed=100
-
-    print "100% update $duration"
-
-  world.text = "everyone"
-  // Update display.
-  duration = Duration.of:
-    display.draw --speed=5
-
-  print "5% update $duration"
