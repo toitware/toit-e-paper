@@ -116,7 +116,7 @@ INTERNAL_POWER_VGH_VGL_            ::= 0x01
 EXTERNAL_POWER_VDH_VDL_            ::= 0x00
 INTERNAL_POWER_VDH_VDL_            ::= 0x02
 
-// Register POWER_SETING_ (0x01), byte 1, page 27, GDEW027W3-2.pdf.
+// Register POWER_SETTING_ (0x01), byte 1, page 27, GDEW027W3-2.pdf.
 VCOM_VOLTAGE_ADDITIVE_             ::= 0x00  // VCOMH=VDH+VCOMDC, VCOML=VHL+VCOMDC.
 VCOM_VOLTAGE_VGHL_                 ::= 0x04  // VCOMH=VGH, VCOML=VGL.
 VCOM_VGHL_LV_MINUS_16_V_           ::= 0x00  // Recommended.
@@ -124,7 +124,7 @@ VCOM_VGHL_LV_MINUS_15_V_           ::= 0x01
 VCOM_VGHL_LV_MINUS_14_V_           ::= 0x02
 VCOM_VGHL_LV_MINUS_13_V_           ::= 0x03
 
-// Register POWER_SETING_ (0x01), bytes 2-4, page 27, GDEW027W3-2.pdf.
+// Register POWER_SETTING_ (0x01), bytes 2-4, page 27, GDEW027W3-2.pdf.
 // 10V recommended for high voltage, black/white pixel.
 // -10V recommended for low voltage, black/white pixel.
 // 3V recommended for high voltage, red pixel.
@@ -152,7 +152,7 @@ PANEL_BWR_                         ::= 0x00  // Black-white-red mode (also used 
 PANEL_BW_                          ::= 0x10  // Black-white mode.
 
 // For booster soft start settings of the 2.9 inch 4 gray panel.
-SOFT_START_10_MS_                  ::= 0x00      // Recommended.
+SOFT_START_10_MS_                  ::= 0x00  // Recommended.
 SOFT_START_20_MS_                  ::= 0x40
 SOFT_START_30_MS_                  ::= 0x80
 SOFT_START_100_MS_                 ::= 0xc0
