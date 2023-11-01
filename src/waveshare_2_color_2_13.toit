@@ -17,7 +17,6 @@ import serial.protocols.spi
 import pixel_display show *
 
 import .e_paper
-import .two_color
 
 LUT_VCOM_DC_ ::= #[
     0x00, 0x08, 0x00, 0x00, 0x00, 0x02,
@@ -172,7 +171,7 @@ LUT_BB_PARTIAL_ ::= #[
     0x00, 0x00, 0x00, 0x00, 0x00, 0x00
 ]
 
-class Waveshare2Color213 extends EPaper2Color:
+class Waveshare2Color213 extends EPaper:
   flags:
     if four_gray_mode_:
       return FLAG_3_COLOR
@@ -188,10 +187,16 @@ class Waveshare2Color213 extends EPaper2Color:
       .width
       .height
       --reset/gpio.Pin?
-      --busy/gpio.Pin?:
+      --busy/gpio.Pin?
+      --auto_reset/bool=true
+      --auto_initialize/bool=true:
     super device
         --reset=reset
         --busy=busy
+    if auto_reset: reset
+    if auto_initialize: initialize
+
+  initialize:
 
   set_mode mode:
     if mode == "default":
@@ -423,10 +428,10 @@ class Waveshare2Color213 extends EPaper2Color:
 
   // Called at the end of a series of draw commands.  For partial mode we don't
   // need to do anything, but for full mode there is some final cleanup to do.
-  refresh left top right bottom:
-    refresh_implementation_ left top right bottom
+  commit left top w h:
+    refresh_implementation_ left top w h
 
-  refresh_implementation_ left top right bottom:
+  refresh_implementation_ left top width height:
     if update_in_progress_ == FULL_UPDATE_IN_PROGRESS_:
       if four_gray_mode_:
         send DATA_START_TRANSMISSION_2_
@@ -437,7 +442,7 @@ class Waveshare2Color213 extends EPaper2Color:
           dump_ 0xff pixels w h
         saved_plane_0_pixels_ = null
       else:
-        screen_bytes := ((right - left) * (bottom - top)) >> 3
+        screen_bytes := (width * height) >> 3
         send DATA_START_TRANSMISSION_1_
         send_repeated_bytes screen_bytes 0
       refresh_all
