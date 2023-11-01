@@ -174,22 +174,28 @@ LUT_BB_PARTIAL_ ::= #[
 class Waveshare2Color213 extends EPaper:
   flags:
     if four_gray_mode_:
-      return FLAG_3_COLOR
+      return FLAG_4_COLOR
     else:
       return FLAG_2_COLOR | FLAG_PARTIAL_UPDATES
 
   width := 0
   height := 0
-  four_gray_mode_ := false
+  four_gray_mode_/bool
   speed_ := 50
 
+  /**
+  If $four_gray_mode is true then the driver has four gray levels and
+    does not support partial updates.
+  */
   constructor device/spi.Device
-      .width
-      .height
+      .width=104
+      .height=212
       --reset/gpio.Pin?
       --busy/gpio.Pin?
+      --four_gray_mode/bool=false
       --auto_reset/bool=true
       --auto_initialize/bool=true:
+    four_gray_mode_ = four_gray_mode
     super device
         --reset=reset
         --busy=busy
@@ -197,14 +203,6 @@ class Waveshare2Color213 extends EPaper:
     if auto_initialize: initialize
 
   initialize:
-
-  set_mode mode:
-    if mode == "default":
-      four_gray_mode_ = false
-    else if mode == "four_gray":
-      four_gray_mode_ = true
-    else:
-      throw "Unknown display mode $mode"
 
   flush:
     switch_off_
@@ -287,13 +285,8 @@ class Waveshare2Color213 extends EPaper:
     update_in_progress_ = FULL_UPDATE_IN_PROGRESS_
 
   start_partial_update speed/int:
-    start_partial_update_implementation_ speed
-
-  start_partial_update_implementation_ speed/int --force/bool=false:
     if update_in_progress_ != NO_UPDATE_IN_PROGRESS_:
-      if not force: throw "Already updating"
-      // Abandon update in progress and keep on trucking.
-      refresh_implementation_ 0 0 0 0
+      throw "Already updating"
     speed_ = speed
     if four_gray_mode_: throw "No partial update supported"
     init_two_color_
@@ -301,9 +294,6 @@ class Waveshare2Color213 extends EPaper:
     update_in_progress_ = PARTIAL_UPDATE_IN_PROGRESS_
 
   draw_two_color left/int top/int right/int bottom/int pixels/ByteArray -> none:
-    draw_2_color_implementation_ left top right bottom pixels
-
-  draw_2_color_implementation_ left/int top/int right/int bottom/int pixels/ByteArray -> none:
     if four_gray_mode_: throw "Two color data sent in gray mode"
     if update_in_progress_ == NO_UPDATE_IN_PROGRESS_: throw "Data sent while not updating"
     w := right - left
@@ -403,7 +393,7 @@ class Waveshare2Color213 extends EPaper:
     send_array B2W_LUT_ LUT_BW_GRAYSCALE_
     send_array W2B_LUT_ LUT_WB_GRAYSCALE_
     send_array B2B_LUT_ LUT_BB_GRAYSCALE_
-    send_array VCOM_LUT_2_ LUT_WW_GRAYSCALE_
+    send_array VCOM_LUT_2_ LUT_VCOM_DC_GRAYSCALE_
 
   // Partial mode is also black-and-white mode.
   static PARTIAL_MODE_1_IS_WHITE_ ::= 0x00
@@ -428,10 +418,7 @@ class Waveshare2Color213 extends EPaper:
 
   // Called at the end of a series of draw commands.  For partial mode we don't
   // need to do anything, but for full mode there is some final cleanup to do.
-  commit left top w h:
-    refresh_implementation_ left top w h
-
-  refresh_implementation_ left top width height:
+  commit left top width height:
     if update_in_progress_ == FULL_UPDATE_IN_PROGRESS_:
       if four_gray_mode_:
         send DATA_START_TRANSMISSION_2_
