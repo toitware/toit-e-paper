@@ -1,3 +1,5 @@
+name: toit_e_paper
+description: Drivers for popular e-paper displays.
 dependencies:
   pixel_display:
     url: github.com/toitware/toit-pixel-display
