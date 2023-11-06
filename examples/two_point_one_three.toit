@@ -6,7 +6,7 @@ import font
 import gpio
 import serial.protocols.spi
 
-import e_paper.waveshare_2_color_2_13 show *
+import e_paper.waveshare_gray_2_13b show *
 import font_x11_adobe.sans_24_bold
 import pixel_display show TwoColorPixelDisplay FourGrayPixelDisplay
 import pixel_display.texture show TEXT_TEXTURE_ALIGN_CENTER
@@ -41,7 +41,7 @@ main:
   four_gray_example device reset busy
 
 two_color_example device reset/gpio.Pin busy/gpio.Pin -> none:
-  driver ::= Waveshare2Color213 device 104 212 --reset=reset --busy=busy --no-auto-reset --no-auto-initialize
+  driver ::= Waveshare2Color213B device 104 212 --reset=reset --busy=busy --no-auto-reset --no-auto-initialize
   display := TwoColorPixelDisplay driver
   driver.reset
   driver.initialize
@@ -84,7 +84,7 @@ two_color_example device reset/gpio.Pin busy/gpio.Pin -> none:
   print "5% update $duration"
 
 four_gray_example device reset/gpio.Pin busy/gpio.Pin -> none:
-  driver ::= Waveshare2Color213 device 104 212
+  driver ::= Waveshare2Color213B device 104 212
       --four_gray_mode
       --reset=reset
       --busy=busy

@@ -3,9 +3,8 @@
 // found in the LICENSE file.
 
 // Driver for the flexible two-color Waveshare 104x212 2.13 inch 2 color
-// e-paper display, type D.  According to the info from Waveshare this panel is
-// capable of partial update, but we don't have this working so this driver is
-// in full update mode (around 2 seconds).
+// e-paper display, type D.  Supports either partial update or 4-gray
+// mode.
 
 // The hat should be set to 4-pin SPI mode.
 // Busy pin is 0=busy 1=notbusy
@@ -171,7 +170,7 @@ LUT_BB_PARTIAL_ ::= #[
     0x00, 0x00, 0x00, 0x00, 0x00, 0x00
 ]
 
-class Waveshare2Color213 extends EPaper:
+class Waveshare2Color213B extends EPaper:
   flags:
     if four_gray_mode_:
       return FLAG_4_COLOR
