@@ -170,7 +170,7 @@ LUT_BB_PARTIAL_ ::= #[
     0x00, 0x00, 0x00, 0x00, 0x00, 0x00
 ]
 
-class Waveshare2Color213B extends EPaper:
+class Waveshare2Color213D extends EPaper:
   flags:
     if four_gray_mode_:
       return FLAG_4_COLOR
