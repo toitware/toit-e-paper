@@ -5,7 +5,7 @@
 // Driver for three-color e-paper displays.
 
 import gpio
-import serial.protocols.spi
+import spi
 
 import pixel_display show *
 
@@ -42,7 +42,7 @@ class EPaper3Color extends EPaper:
     send_array POWER_SETTING_ [0x03, 0x00, 0x2b, 0x2b, 0x09]
     send POWER_ON_
     wait_for_busy
-    send PANEL_SETTING_ 0x8f + _3_COLOR
+    send PANEL_SETTING_ 0x8f + THREE_COLOR_
     wait_for_busy
     send_be RESOLUTION_SETTING_ width height
 

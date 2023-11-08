@@ -8,14 +8,13 @@
 
 import bitmap show *
 import gpio
-import serial.protocols.spi
+import spi
 
 import pixel_display show * 
 
 import .e_paper
-import .two_color
 
-class Waveshare2Color75 extends EPaper2Color:
+class Waveshare2Color75 extends EPaper:
   flags ::= FLAG_2_COLOR
   width := 0
   height := 0
