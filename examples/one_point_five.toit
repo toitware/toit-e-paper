@@ -6,7 +6,7 @@ import e_paper.waveshare_2_color_1_54 show *
 
 import font
 import gpio
-import serial.protocols.spi
+import spi
 
 import e_paper.waveshare_2_color_1_54 show *
 import font_x11_adobe.sans_24_bold
