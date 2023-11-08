@@ -11,7 +11,7 @@
 
 import bitmap show *
 import gpio
-import serial.protocols.spi
+import spi
 
 import pixel_display show *
 

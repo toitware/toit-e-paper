@@ -7,7 +7,7 @@
 import binary
 import bitmap
 import gpio
-import serial.protocols.spi
+import spi
 
 import pixel_display show AbstractDriver
 
@@ -199,10 +199,10 @@ abstract class EPaper extends AbstractDriver:
     buffer_ = ByteArray 128
 
     if reset_:
-      reset_.config --output
+      reset_.configure --output
 
     if busy_:
-      busy_.config --input
+      busy_.configure --input
 
   reset --ms/int=1 -> none:
     if reset_:

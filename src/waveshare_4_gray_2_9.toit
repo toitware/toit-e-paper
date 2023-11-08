@@ -6,7 +6,7 @@
 // display as used in the Adafruit MagTag.
 
 import gpio
-import serial.protocols.spi
+import spi
 
 import .four_gray
 
