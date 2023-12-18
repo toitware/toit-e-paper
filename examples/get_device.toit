@@ -8,12 +8,12 @@ import pixel-display show AbstractDriver
 import spi
 
 get-device -> AbstractDriver:
-  BUSY ::= 16
-  RESET ::= 9
-  DC ::= 2
-  CS ::= 14
-  CLOCK ::= 12
-  DIN ::= 13
+  BUSY ::= 5
+  RESET ::= 18
+  DC ::= 19
+  CS ::= 23
+  CLOCK ::= 22
+  DIN ::= 21
   bus := spi.Bus
     --mosi=gpio.Pin DIN
     --clock=gpio.Pin CLOCK
@@ -26,6 +26,8 @@ get-device -> AbstractDriver:
   reset := gpio.Pin.out RESET
   busy := gpio.Pin.in BUSY --pull-down
 
-  driver ::= Waveshare2Color154 device --reset=reset --busy=busy
+  driver ::= Waveshare2Color154 device --reset=reset --busy=busy --no-auto-reset --no-auto-initialize
+  driver.reset
+  driver.initialize
 
   return driver
