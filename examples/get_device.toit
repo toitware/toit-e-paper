@@ -2,12 +2,12 @@
 // Use of this source code is governed by a Zero-Clause BSD license that can
 // be found in the EXAMPLES_LICENSE file.
 
-import e_paper.waveshare_2_color_1_54 show *
+import e-paper.waveshare-2-color-1-54 show *
 import gpio
-import pixel_display show AbstractDriver
+import pixel-display show AbstractDriver
 import spi
 
-get_device -> AbstractDriver:
+get-device -> AbstractDriver:
   BUSY ::= 16
   RESET ::= 9
   DC ::= 2
@@ -24,7 +24,7 @@ get_device -> AbstractDriver:
     --frequency=10_000_000
 
   reset := gpio.Pin.out RESET
-  busy := gpio.Pin.in BUSY --pull_down
+  busy := gpio.Pin.in BUSY --pull-down
 
   driver ::= Waveshare2Color154 device --reset=reset --busy=busy
 

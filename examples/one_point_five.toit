@@ -2,18 +2,18 @@
 // Use of this source code is governed by a Zero-Clause BSD license that can
 // be found in the EXAMPLES_LICENSE file.
 
-import e_paper.waveshare_2_color_1_54 show *
+import e-paper.waveshare-2-color-1-54 show *
 
 import font
 import gpio
 import spi
 
-import e_paper.waveshare_2_color_1_54 show *
-import font_x11_adobe.sans_24_bold
-import pixel_display show *
-import pixel_display.two_color show WHITE BLACK
+import e-paper.waveshare-2-color-1-54 show *
+import font-x11-adobe.sans-24-bold
+import pixel-display show *
+import pixel-display.two-color show WHITE BLACK
 
-big ::= font.Font [sans_24_bold.ASCII]
+big ::= font.Font [sans-24-bold.ASCII]
 
 main:
   BUSY ::= 5
@@ -32,7 +32,7 @@ main:
     --frequency=20_000_000
 
   reset := gpio.Pin.out RESET
-  busy := gpio.Pin.in BUSY --pull_down
+  busy := gpio.Pin.in BUSY --pull-down
 
   driver ::= Waveshare2Color154 device --reset=reset --busy=busy --no-auto-reset --no-auto-initialize
   display := PixelDisplay.two-color --inverted driver
@@ -70,7 +70,7 @@ main:
 
   print "Full update $duration"
 
-  driver.deep_sleep
+  driver.deep-sleep
   sleep --ms=1000
   driver.reset  // Wake up.
 

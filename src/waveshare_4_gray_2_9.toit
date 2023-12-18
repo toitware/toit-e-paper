@@ -8,17 +8,17 @@
 import gpio
 import spi
 
-import .four_gray
+import .four-gray
 
-WAVESHARE_E_PAPER_2_9_WIDTH_ ::= 296
-WAVESHARE_E_PAPER_2_9_HEIGHT_ ::= 128
+WAVESHARE-E-PAPER-2-9-WIDTH_ ::= 296
+WAVESHARE-E-PAPER-2-9-HEIGHT_ ::= 128
 
 class Waveshare4Gray29 extends EPaper4Grey:
   constructor device/spi.Device
       --reset/gpio.Pin?
       --busy/gpio.Pin?:
-    w := WAVESHARE_E_PAPER_2_9_WIDTH_
-    h := WAVESHARE_E_PAPER_2_9_HEIGHT_
+    w := WAVESHARE-E-PAPER-2-9-WIDTH_
+    h := WAVESHARE-E-PAPER-2-9-HEIGHT_
     super device w h
         --reset=reset
         --busy=busy

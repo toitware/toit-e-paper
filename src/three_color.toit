@@ -7,9 +7,9 @@
 import gpio
 import spi
 
-import pixel_display show *
+import pixel-display show *
 
-import .e_paper
+import .e-paper
 
 class EPaper3Color extends EPaper:
   width := 0
@@ -17,48 +17,48 @@ class EPaper3Color extends EPaper:
   // In software terms these displays support partial update, ie you don't have
   // to send all the data every time.  But once they have the data they are not
   // faster doing a partial vs a full update.
-  flags ::= FLAG_3_COLOR | FLAG_PARTIAL_UPDATES
+  flags ::= FLAG-3-COLOR | FLAG-PARTIAL-UPDATES
 
   constructor device/spi.Device .width .height
       --reset/gpio.Pin?
-      --reset_active_high/bool=false
+      --reset-active-high/bool=false
       --busy/gpio.Pin?
-      --busy_active_high/bool=false:
+      --busy-active-high/bool=false:
     super device
         --reset=reset
-        --reset_active_high=reset_active_high
+        --reset-active-high=reset-active-high
         --busy=busy
-        --busy_active_high=busy_active_high
+        --busy-active-high=busy-active-high
 
   initialize -> none:
-    wait_for_busy
-    send_array BOOSTER_SOFT_START_ [0x07, 0x07, 0x04]
+    wait-for-busy
+    send-array BOOSTER-SOFT-START_ [0x07, 0x07, 0x04]
     send 0xf8 0x60 0xa5
     send 0xf8 0x89 0xa5
     send 0xf8 0x90 0x00
     send 0xf8 0x93 0x2a
-    send PARTIAL_DISPLAY_REFRESH_ 0
-    wait_for_busy
-    send_array POWER_SETTING_ [0x03, 0x00, 0x2b, 0x2b, 0x09]
-    send POWER_ON_
-    wait_for_busy
-    send PANEL_SETTING_ 0x8f + THREE_COLOR_
-    wait_for_busy
-    send_be RESOLUTION_SETTING_ width height
+    send PARTIAL-DISPLAY-REFRESH_ 0
+    wait-for-busy
+    send-array POWER-SETTING_ [0x03, 0x00, 0x2b, 0x2b, 0x09]
+    send POWER-ON_
+    wait-for-busy
+    send PANEL-SETTING_ 0x8f + THREE-COLOR_
+    wait-for-busy
+    send-be RESOLUTION-SETTING_ width height
 
-  draw_two_bit left/int top/int right/int bottom/int black/ByteArray red/ByteArray -> none:
+  draw-two-bit left/int top/int right/int bottom/int black/ByteArray red/ByteArray -> none:
     w ::= right - left
-    send_be PARTIAL_DATA_START_TRANSMISSION_1_ left top (right - left) (bottom - top)
+    send-be PARTIAL-DATA-START-TRANSMISSION-1_ left top (right - left) (bottom - top)
     dump_ 0 black w (bottom - top)
-    send DATA_STOP_
-    send_be PARTIAL_DATA_START_TRANSMISSION_2_ left top (right - left) (bottom - top)
+    send DATA-STOP_
+    send-be PARTIAL-DATA-START-TRANSMISSION-2_ left top (right - left) (bottom - top)
     dump_ 0 red w (bottom - top)
-    send DATA_STOP_
+    send DATA-STOP_
 
-  refresh refresh_left refresh_top refresh_right refresh_bottom:
+  refresh refresh-left refresh-top refresh-right refresh-bottom:
     // Refresh.
     sleep --ms=1
-    wait_for_busy
+    wait-for-busy
     // No support for partial refresh on three-color devices.
-    send DISPLAY_REFRESH_
-    wait_for_busy
+    send DISPLAY-REFRESH_
+    wait-for-busy
