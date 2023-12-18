@@ -10,12 +10,12 @@ import bitmap show *
 import gpio
 import spi
 
-import pixel_display show * 
+import pixel-display show * 
 
-import .e_paper
+import .e-paper
 
 class Waveshare2Color75 extends EPaper:
-  flags ::= FLAG_2_COLOR
+  flags ::= FLAG-2-COLOR
   width := 0
   height := 0
 
@@ -26,34 +26,34 @@ class Waveshare2Color75 extends EPaper:
     super device --reset=reset --busy=busy
 
   initialize -> none:
-    wait_for_busy
-    send POWER_SETTING_ 0x37 0x00
-    panel_setting := RESOLUTION_600_448_  // Overridden later by explicit resolution setting?
-    panel_setting |= DC_DC_CONVERTER_ON_
-    panel_setting |= NO_SOFT_RESET_
-    panel_setting |= LUT_FROM_REGISTER_
-    send PANEL_SETTING_ panel_setting //0x08
-    send BOOSTER_SOFT_START_ 0xc7 0xcc 0x28
-    send POWER_ON_
-    wait_for_busy
+    wait-for-busy
+    send POWER-SETTING_ 0x37 0x00
+    panel-setting := RESOLUTION-600-448_  // Overridden later by explicit resolution setting?
+    panel-setting |= DC-DC-CONVERTER-ON_
+    panel-setting |= NO-SOFT-RESET_
+    panel-setting |= LUT-FROM-REGISTER_
+    send PANEL-SETTING_ panel-setting //0x08
+    send BOOSTER-SOFT-START_ 0xc7 0xcc 0x28
+    send POWER-ON_
+    wait-for-busy
 
-    send PLL_CONTROL_ FRAME_RATE_50_HZ_
-    send TEMPERATURE_SENSOR_CALIBRATION_ 0x00
-    send VCOM_AND_DATA_SETTING_INTERVAL_ 0x77
-    send TCON_SETTING_ 0x22
+    send PLL-CONTROL_ FRAME-RATE-50-HZ_
+    send TEMPERATURE-SENSOR-CALIBRATION_ 0x00
+    send VCOM-AND-DATA-SETTING-INTERVAL_ 0x77
+    send TCON-SETTING_ 0x22
 
-    send_be RESOLUTION_SETTING_ width height
+    send-be RESOLUTION-SETTING_ width height
 
-    send VCOM_DC_ 0x1e
+    send VCOM-DC_ 0x1e
 
     send 0xe5 0x03   // Flash mode
 
-    wait_for_busy
+    wait-for-busy
 
-  start_full_update speed/int -> none:
-    send DATA_START_TRANSMISSION_1_
+  start-full-update speed/int -> none:
+    send DATA-START-TRANSMISSION-1_
 
-  draw_two_color left/int top/int right/int bottom/int pixels/ByteArray -> none:
+  draw-two-color left/int top/int right/int bottom/int pixels/ByteArray -> none:
     // BUG: https://github.com/toitware/toit/issues/2939.
     throw "unimplemented"
     /*
@@ -71,5 +71,5 @@ class Waveshare2Color75 extends EPaper:
     */
 
   refresh left/int top/int right/int bottom/int ->none:
-    send DISPLAY_REFRESH_
-    wait_for_busy
+    send DISPLAY-REFRESH_
+    wait-for-busy

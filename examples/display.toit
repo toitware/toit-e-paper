@@ -3,20 +3,20 @@
 // found in the LICENSE file.
 
 import font
-import pixel_display show TwoColorPixelDisplay
-import pixel_display.texture show TEXT_TEXTURE_ALIGN_CENTER
-import pixel_display.two_color show TextTexture WHITE BLACK
+import pixel-display show TwoColorPixelDisplay
+import pixel-display.texture show TEXT-TEXTURE-ALIGN-CENTER
+import pixel-display.two-color show TextTexture WHITE BLACK
 
-import .get_device
+import .get-device
 
 sans ::= font.Font.get "sans10"
 
 main:
-  driver := get_device
+  driver := get-device
   display := TwoColorPixelDisplay driver
 
   // Create graphics context.
-  context := display.context --landscape --font=sans --alignment=TEXT_TEXTURE_ALIGN_CENTER --color=BLACK
+  context := display.context --landscape --font=sans --alignment=TEXT-TEXTURE-ALIGN-CENTER --color=BLACK
   // Add text to the display.
   display.text context 102 50 "Hello, World!"
   // Update display.

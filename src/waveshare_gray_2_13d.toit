@@ -13,11 +13,11 @@ import bitmap show *
 import gpio
 import spi
 
-import pixel_display show *
+import pixel-display show *
 
-import .e_paper
+import .e-paper
 
-LUT_VCOM_DC_ ::= #[
+LUT-VCOM-DC_ ::= #[
     0x00, 0x08, 0x00, 0x00, 0x00, 0x02,
     0x60, 0x28, 0x28, 0x00, 0x00, 0x01,
     0x00, 0x14, 0x00, 0x00, 0x00, 0x01,
@@ -28,7 +28,7 @@ LUT_VCOM_DC_ ::= #[
     0x00, 0x00
 ]
 
-LUT_WW_ ::= #[
+LUT-WW_ ::= #[
     0x40, 0x08, 0x00, 0x00, 0x00, 0x02,
     0x90, 0x28, 0x28, 0x00, 0x00, 0x01,
     0x40, 0x14, 0x00, 0x00, 0x00, 0x01,
@@ -38,7 +38,7 @@ LUT_WW_ ::= #[
     0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
 ]
 
-LUT_BW_ ::= #[
+LUT-BW_ ::= #[
     0x40, 0x17, 0x00, 0x00, 0x00, 0x02,
     0x90, 0x0F, 0x0F, 0x00, 0x00, 0x03,
     0x40, 0x0A, 0x01, 0x00, 0x00, 0x01,
@@ -48,7 +48,7 @@ LUT_BW_ ::= #[
     0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
 ]
 
-LUT_WB_ ::= #[
+LUT-WB_ ::= #[
     0x80, 0x08, 0x00, 0x00, 0x00, 0x02,
     0x90, 0x28, 0x28, 0x00, 0x00, 0x01,
     0x80, 0x14, 0x00, 0x00, 0x00, 0x01,
@@ -58,7 +58,7 @@ LUT_WB_ ::= #[
     0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
 ]
 
-LUT_BB_ ::= #[
+LUT-BB_ ::= #[
     0x80, 0x08, 0x00, 0x00, 0x00, 0x02,
     0x90, 0x28, 0x28, 0x00, 0x00, 0x01,
     0x80, 0x14, 0x00, 0x00, 0x00, 0x01,
@@ -68,7 +68,7 @@ LUT_BB_ ::= #[
     0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
 ]
 
-LUT_VCOM_DC_GRAYSCALE_ ::= #[
+LUT-VCOM-DC-GRAYSCALE_ ::= #[
     0x00, 0x0A, 0x00, 0x00, 0x00, 0x01,
     0x60, 0x14, 0x14, 0x00, 0x00, 0x01,
     0x00, 0x14, 0x00, 0x00, 0x00, 0x01,
@@ -79,7 +79,7 @@ LUT_VCOM_DC_GRAYSCALE_ ::= #[
     0x00, 0x00,
 ]
 
-LUT_WW_GRAYSCALE_ ::= #[
+LUT-WW-GRAYSCALE_ ::= #[
     0x40, 0x0A, 0x00, 0x00, 0x00, 0x01,
     0x90, 0x14, 0x14, 0x00, 0x00, 0x01,
     0x10, 0x14, 0x0A, 0x00, 0x00, 0x01,
@@ -89,7 +89,7 @@ LUT_WW_GRAYSCALE_ ::= #[
     0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
 ]
 
-LUT_BW_GRAYSCALE_ ::= #[
+LUT-BW-GRAYSCALE_ ::= #[
     0x40, 0x0A, 0x00, 0x00, 0x00, 0x01,
     0x90, 0x14, 0x14, 0x00, 0x00, 0x01,
     0x00, 0x14, 0x0A, 0x00, 0x00, 0x01,
@@ -99,7 +99,7 @@ LUT_BW_GRAYSCALE_ ::= #[
     0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
 ]
 
-LUT_WB_GRAYSCALE_ ::= #[
+LUT-WB-GRAYSCALE_ ::= #[
     0x40, 0x0A, 0x00, 0x00, 0x00, 0x01,
     0x90, 0x14, 0x14, 0x00, 0x00, 0x01,
     0x00, 0x14, 0x0A, 0x00, 0x00, 0x01,
@@ -109,7 +109,7 @@ LUT_WB_GRAYSCALE_ ::= #[
     0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
 ]
 
-LUT_BB_GRAYSCALE_ ::= #[
+LUT-BB-GRAYSCALE_ ::= #[
     0x80, 0x0A, 0x00, 0x00, 0x00, 0x01,
     0x90, 0x14, 0x14, 0x00, 0x00, 0x01,
     0x20, 0x14, 0x0A, 0x00, 0x00, 0x01,
@@ -119,7 +119,7 @@ LUT_BB_GRAYSCALE_ ::= #[
     0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
 ]
 
-LUT_VCOM_DC_PARTIAL_ ::= #[
+LUT-VCOM-DC-PARTIAL_ ::= #[
     0x00, 0x19, 0x01, 0x00, 0x00, 0x01,
     0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
     0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
@@ -130,7 +130,7 @@ LUT_VCOM_DC_PARTIAL_ ::= #[
     0x00, 0x00
 ]
 
-LUT_WW_PARTIAL_ ::= #[
+LUT-WW-PARTIAL_ ::= #[
     0x00, 0x19, 0x01, 0x00, 0x00, 0x01,
     0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
     0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
@@ -140,7 +140,7 @@ LUT_WW_PARTIAL_ ::= #[
     0x00, 0x00, 0x00, 0x00, 0x00, 0x00
 ]
 
-LUT_BW_PARTIAL_ ::= #[
+LUT-BW-PARTIAL_ ::= #[
     0x80, 0x19, 0x01, 0x00, 0x00, 0x01,
     0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
     0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
@@ -150,7 +150,7 @@ LUT_BW_PARTIAL_ ::= #[
     0x00, 0x00, 0x00, 0x00, 0x00, 0x00
 ]
 
-LUT_WB_PARTIAL_ ::= #[
+LUT-WB-PARTIAL_ ::= #[
     0x40, 0x19, 0x01, 0x00, 0x00, 0x01,
     0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
     0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
@@ -160,7 +160,7 @@ LUT_WB_PARTIAL_ ::= #[
     0x00, 0x00, 0x00, 0x00, 0x00, 0x00
 ]
 
-LUT_BB_PARTIAL_ ::= #[
+LUT-BB-PARTIAL_ ::= #[
     0x00, 0x19, 0x01, 0x00, 0x00, 0x01,
     0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
     0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
@@ -172,18 +172,18 @@ LUT_BB_PARTIAL_ ::= #[
 
 class Waveshare2Color213D extends EPaper:
   flags:
-    if four_gray_mode_:
-      return FLAG_4_COLOR
+    if four-gray-mode_:
+      return FLAG-4-COLOR
     else:
-      return FLAG_2_COLOR | FLAG_PARTIAL_UPDATES
+      return FLAG-2-COLOR | FLAG-PARTIAL-UPDATES
 
   width := 0
   height := 0
-  four_gray_mode_/bool
+  four-gray-mode_/bool
   speed_ := 50
 
   /**
-  If $four_gray_mode is true then the driver has four gray levels and
+  If $four-gray-mode is true then the driver has four gray levels and
     does not support partial updates.
   */
   constructor device/spi.Device
@@ -191,25 +191,25 @@ class Waveshare2Color213D extends EPaper:
       .height=212
       --reset/gpio.Pin?
       --busy/gpio.Pin?
-      --four_gray_mode/bool=false
-      --auto_reset/bool=true
-      --auto_initialize/bool=true:
-    four_gray_mode_ = four_gray_mode
+      --four-gray-mode/bool=false
+      --auto-reset/bool=true
+      --auto-initialize/bool=true:
+    four-gray-mode_ = four-gray-mode
     super device
         --reset=reset
         --busy=busy
-    if auto_reset: reset
-    if auto_initialize: initialize
+    if auto-reset: reset
+    if auto-initialize: initialize
 
   initialize:
 
   flush:
-    switch_off_
+    switch-off_
 
-  init_two_color_:
+  init-two-color_:
     reset --ms=10
 
-    send_array POWER_SETTING_ #[
+    send-array POWER-SETTING_ #[
       0x03,  // Internal DC/DC converter for power.
       0x00,  // VCOM voltage level 20V.
       0x2b,  // VDH power for B/W pixel +15V
@@ -217,29 +217,29 @@ class Waveshare2Color213D extends EPaper:
       0x03  // VDHR power for red pixel +3V
     ]
 
-    send BOOSTER_SOFT_START_  // Default values.
+    send BOOSTER-SOFT-START_  // Default values.
       0x17  // A
       0x17  // B
       0x17  // C
 
-    send POWER_ON_
-    check_status_
+    send POWER-ON_
+    check-status_
 
-    send PANEL_SETTING_ (RES_96_252_ | LUT_FROM_REG_ | BLACK_WHITE_ | SCAN_UP_ | SOURCE_SHIFT_RIGHT_ | BOOSTER_SWITCH_ON_ | NO_SOFT_RESET_) 0x0d
+    send PANEL-SETTING_ (RES-96-252_ | LUT-FROM-REG_ | BLACK-WHITE_ | SCAN-UP_ | SOURCE-SHIFT-RIGHT_ | BOOSTER-SWITCH-ON_ | NO-SOFT-RESET_) 0x0d
 
-    send PLL_CONTROL_ 0x3a  // 0x3a 100Hz, 0x3c 50Hz
+    send PLL-CONTROL_ 0x3a  // 0x3a 100Hz, 0x3c 50Hz
 
-    send RESOLUTION_SETTING_ width height >> 8 height
-    send VCOM_DC_ 0x28  // in steps of -0.05V, this is -2.1V
+    send RESOLUTION-SETTING_ width height >> 8 height
+    send VCOM-DC_ 0x28  // in steps of -0.05V, this is -2.1V
 
-  check_status_:
-    send GET_STATUS_
-    wait_for_busy
+  check-status_:
+    send GET-STATUS_
+    wait-for-busy
 
-  init_grayscale_:
+  init-grayscale_:
     reset --ms=10
 
-    send_array POWER_SETTING_ #[
+    send-array POWER-SETTING_ #[
       0x03,  // Internal DC/DC converter for power.
       0x00,  // VCOM voltage level +-16V.
       0x2b,  // VDH power for B/W pixel
@@ -247,196 +247,196 @@ class Waveshare2Color213D extends EPaper:
       0x13  // VDHR power for red pixel
     ]
 
-    send BOOSTER_SOFT_START_  // Default values.
+    send BOOSTER-SOFT-START_  // Default values.
       0x17  // A
       0x17  // B
       0x17  // C
 
-    send POWER_ON_
-    check_status_
+    send POWER-ON_
+    check-status_
 
-    send PANEL_SETTING_ (RES_96_230_ | LUT_FROM_REG_ | BLACK_WHITE_ | SCAN_UP_ | SOURCE_SHIFT_RIGHT_ | BOOSTER_SWITCH_ON_ | NO_SOFT_RESET_) 0x0d
+    send PANEL-SETTING_ (RES-96-230_ | LUT-FROM-REG_ | BLACK-WHITE_ | SCAN-UP_ | SOURCE-SHIFT-RIGHT_ | BOOSTER-SWITCH-ON_ | NO-SOFT-RESET_) 0x0d
 
-    send PLL_CONTROL_ 0x3c  // 0x3a 100Hz, 0x3c 50Hz
+    send PLL-CONTROL_ 0x3c  // 0x3a 100Hz, 0x3c 50Hz
 
-    send RESOLUTION_SETTING_ width height >> 8 height
+    send RESOLUTION-SETTING_ width height >> 8 height
 
-    send VCOM_DC_ 0x12  // in steps of -0.05V
+    send VCOM-DC_ 0x12  // in steps of -0.05V
 
-  static NO_UPDATE_IN_PROGRESS_ ::= 0
-  static FULL_UPDATE_IN_PROGRESS_ ::= 1
-  static PARTIAL_UPDATE_IN_PROGRESS_ ::= 2
+  static NO-UPDATE-IN-PROGRESS_ ::= 0
+  static FULL-UPDATE-IN-PROGRESS_ ::= 1
+  static PARTIAL-UPDATE-IN-PROGRESS_ ::= 2
 
-  update_in_progress_ := NO_UPDATE_IN_PROGRESS_
+  update-in-progress_ := NO-UPDATE-IN-PROGRESS_
 
-  start_full_update speed/int:
-    if update_in_progress_ != NO_UPDATE_IN_PROGRESS_: throw "Already updating"
+  start-full-update speed/int:
+    if update-in-progress_ != NO-UPDATE-IN-PROGRESS_: throw "Already updating"
     speed_ = speed
-    if four_gray_mode_:
-      init_grayscale_
-      set_grayscale_registers_
-      send DATA_START_TRANSMISSION_1_
-      saved_plane_0_pixels_ = []
+    if four-gray-mode_:
+      init-grayscale_
+      set-grayscale-registers_
+      send DATA-START-TRANSMISSION-1_
+      saved-plane-0-pixels_ = []
     else:
-      init_two_color_
-      set_full_registers_
-      send DATA_START_TRANSMISSION_2_
-    update_in_progress_ = FULL_UPDATE_IN_PROGRESS_
+      init-two-color_
+      set-full-registers_
+      send DATA-START-TRANSMISSION-2_
+    update-in-progress_ = FULL-UPDATE-IN-PROGRESS_
 
-  start_partial_update speed/int:
-    if update_in_progress_ != NO_UPDATE_IN_PROGRESS_:
+  start-partial-update speed/int:
+    if update-in-progress_ != NO-UPDATE-IN-PROGRESS_:
       throw "Already updating"
     speed_ = speed
-    if four_gray_mode_: throw "No partial update supported"
-    init_two_color_
-    set_partial_registers_
-    update_in_progress_ = PARTIAL_UPDATE_IN_PROGRESS_
+    if four-gray-mode_: throw "No partial update supported"
+    init-two-color_
+    set-partial-registers_
+    update-in-progress_ = PARTIAL-UPDATE-IN-PROGRESS_
 
-  draw_two_color left/int top/int right/int bottom/int pixels/ByteArray -> none:
-    if four_gray_mode_: throw "Two color data sent in gray mode"
-    if update_in_progress_ == NO_UPDATE_IN_PROGRESS_: throw "Data sent while not updating"
+  draw-two-color left/int top/int right/int bottom/int pixels/ByteArray -> none:
+    if four-gray-mode_: throw "Two color data sent in gray mode"
+    if update-in-progress_ == NO-UPDATE-IN-PROGRESS_: throw "Data sent while not updating"
     w := right - left
     h := bottom - top
-    if update_in_progress_ == FULL_UPDATE_IN_PROGRESS_:
+    if update-in-progress_ == FULL-UPDATE-IN-PROGRESS_:
       dump_ 0xff pixels w h
     else:
-      send PARTIAL_IN_
-      send_array PARTIAL_WINDOW_ [ left, right - 1, top >> 8, top, (bottom - 1) >> 8, bottom - 1, 0x28 ]
-      send DATA_START_TRANSMISSION_1_
+      send PARTIAL-IN_
+      send-array PARTIAL-WINDOW_ [ left, right - 1, top >> 8, top, (bottom - 1) >> 8, bottom - 1, 0x28 ]
+      send DATA-START-TRANSMISSION-1_
       dump_ 0xff pixels w h
-      send DATA_START_TRANSMISSION_2_
+      send DATA-START-TRANSMISSION-2_
       dump_ 0 pixels w h
-      refresh_all
-      send PARTIAL_OUT_
+      refresh-all
+      send PARTIAL-OUT_
 
-  saved_plane_0_pixels_ := null
+  saved-plane-0-pixels_ := null
 
-  draw_two_bit left/int top/int right/int bottom/int plane_0_pixels/ByteArray plane_1_pixels/ByteArray -> none:
-    if not four_gray_mode_: throw "Gray data sent in two-color mode"
-    if update_in_progress_ != FULL_UPDATE_IN_PROGRESS_: throw "Data sent while not updating"
+  draw-two-bit left/int top/int right/int bottom/int plane-0-pixels/ByteArray plane-1-pixels/ByteArray -> none:
+    if not four-gray-mode_: throw "Gray data sent in two-color mode"
+    if update-in-progress_ != FULL-UPDATE-IN-PROGRESS_: throw "Data sent while not updating"
     w := right - left
     h := bottom - top
-    saved_plane_0_pixels_.add [plane_0_pixels, w, h]
-    dump_ 0xff plane_1_pixels w h
+    saved-plane-0-pixels_.add [plane-0-pixels, w, h]
+    dump_ 0xff plane-1-pixels w h
 
-  vcom_and_data_interval_ interval:
+  vcom-and-data-interval_ interval:
     assert: 2 <= interval <= 17
     return 17 - interval
 
   // Full update mode is also black-white-red mode.
-  static FULL_MODE_1_IS_RED_ ::= 0x00
-  static FULL_MODE_0_IS_RED_ ::= 0x20
-  static FULL_MODE_1_IS_BLACK_ ::= 0x00
-  static FULL_MODE_1_IS_WHITE_ ::= 0x10
-  static FULL_MODE_FLOATING_BORDER_WHEN_1_IS_BLACK_ ::= 0x00
-  static FULL_MODE_RED_BORDER_WHEN_1_IS_BLACK_      ::= 0x40
-  static FULL_MODE_WHITE_BORDER_WHEN_1_IS_BLACK_    ::= 0x80
-  static FULL_MODE_BLACK_BORDER_WHEN_1_IS_BLACK_    ::= 0xC0
-  static FULL_MODE_FLOATING_BORDER_WHEN_1_IS_WHITE_ ::= 0xC0
-  static FULL_MODE_RED_BORDER_WHEN_1_IS_WHITE_      ::= 0x80
-  static FULL_MODE_WHITE_BORDER_WHEN_1_IS_WHITE_    ::= 0x40
-  static FULL_MODE_BLACK_BORDER_WHEN_1_IS_WHITE_    ::= 0x00
+  static FULL-MODE-1-IS-RED_ ::= 0x00
+  static FULL-MODE-0-IS-RED_ ::= 0x20
+  static FULL-MODE-1-IS-BLACK_ ::= 0x00
+  static FULL-MODE-1-IS-WHITE_ ::= 0x10
+  static FULL-MODE-FLOATING-BORDER-WHEN-1-IS-BLACK_ ::= 0x00
+  static FULL-MODE-RED-BORDER-WHEN-1-IS-BLACK_      ::= 0x40
+  static FULL-MODE-WHITE-BORDER-WHEN-1-IS-BLACK_    ::= 0x80
+  static FULL-MODE-BLACK-BORDER-WHEN-1-IS-BLACK_    ::= 0xC0
+  static FULL-MODE-FLOATING-BORDER-WHEN-1-IS-WHITE_ ::= 0xC0
+  static FULL-MODE-RED-BORDER-WHEN-1-IS-WHITE_      ::= 0x80
+  static FULL-MODE-WHITE-BORDER-WHEN-1-IS-WHITE_    ::= 0x40
+  static FULL-MODE-BLACK-BORDER-WHEN-1-IS-WHITE_    ::= 0x00
 
-  static RES_96_230_ ::= 0x00
-  static RES_96_252_ ::= 0x80
-  static RES_128_296_ ::= 0x40
-  static RES_160_296_ ::= 0xc0
-  static LUT_FROM_OTP_ ::= 0x00
-  static LUT_FROM_REG_ ::= 0x20
-  static BLACK_WHITE_RED_ ::= 0x00
-  static BLACK_WHITE_ ::= 0x10
-  static SCAN_DOWN_ ::= 0
-  static SCAN_UP_ ::= 8
-  static SOURCE_SHIFT_LEFT_ ::= 0
-  static SOURCE_SHIFT_RIGHT_ ::= 4
-  static BOOSTER_SWITCH_OFF_ ::= 0
-  static BOOSTER_SWITCH_ON_ ::= 2
-  static SOFT_RESET_ ::= 0
-  static NO_SOFT_RESET_ ::= 1
+  static RES-96-230_ ::= 0x00
+  static RES-96-252_ ::= 0x80
+  static RES-128-296_ ::= 0x40
+  static RES-160-296_ ::= 0xc0
+  static LUT-FROM-OTP_ ::= 0x00
+  static LUT-FROM-REG_ ::= 0x20
+  static BLACK-WHITE-RED_ ::= 0x00
+  static BLACK-WHITE_ ::= 0x10
+  static SCAN-DOWN_ ::= 0
+  static SCAN-UP_ ::= 8
+  static SOURCE-SHIFT-LEFT_ ::= 0
+  static SOURCE-SHIFT-RIGHT_ ::= 4
+  static BOOSTER-SWITCH-OFF_ ::= 0
+  static BOOSTER-SWITCH-ON_ ::= 2
+  static SOFT-RESET_ ::= 0
+  static NO-SOFT-RESET_ ::= 1
 
-  switch_off_:
-    if update_in_progress_ == NO_UPDATE_IN_PROGRESS_: return
-    update_in_progress_ = NO_UPDATE_IN_PROGRESS_
+  switch-off_:
+    if update-in-progress_ == NO-UPDATE-IN-PROGRESS_: return
+    update-in-progress_ = NO-UPDATE-IN-PROGRESS_
 
-    set_border_floating_
+    set-border-floating_
     sleep --ms=1
-    check_status_
+    check-status_
 
-    send VCOM_AND_DATA_SETTING_INTERVAL_ 0xf7   // 0x50 0xf7
-    send POWER_OFF_                             // 0x02
+    send VCOM-AND-DATA-SETTING-INTERVAL_ 0xf7   // 0x50 0xf7
+    send POWER-OFF_                             // 0x02
     sleep --ms=1
-    check_status_
+    check-status_
 
-    wait_for_busy                               // Wait for the busy line to be not busy
-    send DEEP_SLEEP_ DEEP_SLEEP_CHECK_          // 0x07 0xa5
+    wait-for-busy                               // Wait for the busy line to be not busy
+    send DEEP-SLEEP_ DEEP-SLEEP-CHECK_          // 0x07 0xa5
 
-  set_full_registers_:
-    send VCOM_AND_DATA_SETTING_INTERVAL_
-      FULL_MODE_1_IS_WHITE_ +
-        FULL_MODE_0_IS_RED_ +
-          FULL_MODE_WHITE_BORDER_WHEN_1_IS_BLACK_ +
-            (vcom_and_data_interval_ 10)
-    send_array VCOM_LUT_ LUT_VCOM_DC_
-    send_array W2W_LUT_ LUT_WW_
-    send_array B2W_LUT_ LUT_BW_
-    send_array W2B_LUT_ LUT_WB_
-    send_array B2B_LUT_ LUT_BB_
+  set-full-registers_:
+    send VCOM-AND-DATA-SETTING-INTERVAL_
+      FULL-MODE-1-IS-WHITE_ +
+        FULL-MODE-0-IS-RED_ +
+          FULL-MODE-WHITE-BORDER-WHEN-1-IS-BLACK_ +
+            (vcom-and-data-interval_ 10)
+    send-array VCOM-LUT_ LUT-VCOM-DC_
+    send-array W2W-LUT_ LUT-WW_
+    send-array B2W-LUT_ LUT-BW_
+    send-array W2B-LUT_ LUT-WB_
+    send-array B2B-LUT_ LUT-BB_
 
-  set_grayscale_registers_:
-    send VCOM_AND_DATA_SETTING_INTERVAL_
-      FULL_MODE_1_IS_WHITE_ +
-        FULL_MODE_RED_BORDER_WHEN_1_IS_WHITE_ +
-          (vcom_and_data_interval_ 10)
-    send_array VCOM_LUT_ LUT_VCOM_DC_GRAYSCALE_
-    send_array W2W_LUT_ LUT_WW_GRAYSCALE_
-    send_array B2W_LUT_ LUT_BW_GRAYSCALE_
-    send_array W2B_LUT_ LUT_WB_GRAYSCALE_
-    send_array B2B_LUT_ LUT_BB_GRAYSCALE_
-    send_array VCOM_LUT_2_ LUT_VCOM_DC_GRAYSCALE_
+  set-grayscale-registers_:
+    send VCOM-AND-DATA-SETTING-INTERVAL_
+      FULL-MODE-1-IS-WHITE_ +
+        FULL-MODE-RED-BORDER-WHEN-1-IS-WHITE_ +
+          (vcom-and-data-interval_ 10)
+    send-array VCOM-LUT_ LUT-VCOM-DC-GRAYSCALE_
+    send-array W2W-LUT_ LUT-WW-GRAYSCALE_
+    send-array B2W-LUT_ LUT-BW-GRAYSCALE_
+    send-array W2B-LUT_ LUT-WB-GRAYSCALE_
+    send-array B2B-LUT_ LUT-BB-GRAYSCALE_
+    send-array VCOM-LUT-2_ LUT-VCOM-DC-GRAYSCALE_
 
   // Partial mode is also black-and-white mode.
-  static PARTIAL_MODE_1_IS_WHITE_ ::= 0x00
-  static PARTIAL_MODE_1_IS_BLACK_ ::= 0x10
-  static PARTIAL_MODE_BORDER_IS_FLOATING_ ::= 0x00  // Also 0xC0.
-  static PARTIAL_MODE_BORDER_IS_0_ ::= 0x40
-  static PARTIAL_MODE_BORDER_IS_1_ ::= 0x80
+  static PARTIAL-MODE-1-IS-WHITE_ ::= 0x00
+  static PARTIAL-MODE-1-IS-BLACK_ ::= 0x10
+  static PARTIAL-MODE-BORDER-IS-FLOATING_ ::= 0x00  // Also 0xC0.
+  static PARTIAL-MODE-BORDER-IS-0_ ::= 0x40
+  static PARTIAL-MODE-BORDER-IS-1_ ::= 0x80
 
-  set_partial_registers_:
-    send VCOM_DC_ 3
-    send VCOM_AND_DATA_SETTING_INTERVAL_ PARTIAL_MODE_BORDER_IS_0_ + PARTIAL_MODE_1_IS_WHITE_ + (vcom_and_data_interval_ 10)
-    send_array VCOM_LUT_ LUT_VCOM_DC_PARTIAL_
-    send_array W2W_LUT_ LUT_WW_PARTIAL_
-    send_array B2W_LUT_ LUT_BW_PARTIAL_
-    send_array W2B_LUT_ LUT_WB_PARTIAL_
-    send_array B2B_LUT_ LUT_BB_PARTIAL_
+  set-partial-registers_:
+    send VCOM-DC_ 3
+    send VCOM-AND-DATA-SETTING-INTERVAL_ PARTIAL-MODE-BORDER-IS-0_ + PARTIAL-MODE-1-IS-WHITE_ + (vcom-and-data-interval_ 10)
+    send-array VCOM-LUT_ LUT-VCOM-DC-PARTIAL_
+    send-array W2W-LUT_ LUT-WW-PARTIAL_
+    send-array B2W-LUT_ LUT-BW-PARTIAL_
+    send-array W2B-LUT_ LUT-WB-PARTIAL_
+    send-array B2B-LUT_ LUT-BB-PARTIAL_
 
-  refresh_all:
-    send DISPLAY_REFRESH_
+  refresh-all:
+    send DISPLAY-REFRESH_
     sleep --ms=1
-    check_status_
+    check-status_
 
   // Called at the end of a series of draw commands.  For partial mode we don't
   // need to do anything, but for full mode there is some final cleanup to do.
   commit left top width height:
-    if update_in_progress_ == FULL_UPDATE_IN_PROGRESS_:
-      if four_gray_mode_:
-        send DATA_START_TRANSMISSION_2_
-        saved_plane_0_pixels_.do:
+    if update-in-progress_ == FULL-UPDATE-IN-PROGRESS_:
+      if four-gray-mode_:
+        send DATA-START-TRANSMISSION-2_
+        saved-plane-0-pixels_.do:
           pixels := it[0]
           w := it[1]
           h := it[2]
           dump_ 0xff pixels w h
-        saved_plane_0_pixels_ = null
+        saved-plane-0-pixels_ = null
       else:
-        screen_bytes := (width * height) >> 3
-        send DATA_START_TRANSMISSION_1_
-        send_repeated_bytes screen_bytes 0
-      refresh_all
-    switch_off_
+        screen-bytes := (width * height) >> 3
+        send DATA-START-TRANSMISSION-1_
+        send-repeated-bytes screen-bytes 0
+      refresh-all
+    switch-off_
 
-  set_border_floating_:
-    send VCOM_AND_DATA_SETTING_INTERVAL_
-      FULL_MODE_1_IS_WHITE_ +
-        FULL_MODE_0_IS_RED_ +
-          FULL_MODE_FLOATING_BORDER_WHEN_1_IS_WHITE_ +
-            (vcom_and_data_interval_ 10)
+  set-border-floating_:
+    send VCOM-AND-DATA-SETTING-INTERVAL_
+      FULL-MODE-1-IS-WHITE_ +
+        FULL-MODE-0-IS-RED_ +
+          FULL-MODE-FLOATING-BORDER-WHEN-1-IS-WHITE_ +
+            (vcom-and-data-interval_ 10)

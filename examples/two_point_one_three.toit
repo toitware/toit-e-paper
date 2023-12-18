@@ -6,13 +6,13 @@ import font
 import gpio
 import spi
 
-import e_paper.waveshare_gray_2_13d show *
-import font_x11_adobe.sans_24_bold
-import pixel_display show *
-import pixel_display.four_gray
-import pixel_display.two_color
+import e-paper.waveshare-gray-2-13d show *
+import font-x11-adobe.sans-24-bold
+import pixel-display show *
+import pixel-display.four-gray
+import pixel-display.two-color
 
-big ::= font.Font [sans_24_bold.ASCII]
+big ::= font.Font [sans-24-bold.ASCII]
 
 main:
   BUSY ::= 5
@@ -31,21 +31,21 @@ main:
     --frequency=20_000_000
 
   reset := gpio.Pin.out RESET
-  busy := gpio.Pin.in BUSY --pull_down
+  busy := gpio.Pin.in BUSY --pull-down
 
-  two_color_example device reset busy
+  two-color-example device reset busy
 
   sleep --ms=3000
 
-  four_gray_example device reset busy
+  four-gray-example device reset busy
 
-two_color_example device reset/gpio.Pin busy/gpio.Pin -> none:
+two-color-example device reset/gpio.Pin busy/gpio.Pin -> none:
   driver ::= Waveshare2Color213D device 104 212 --reset=reset --busy=busy --no-auto-reset --no-auto-initialize
   display := PixelDisplay.two-color driver
   driver.reset
   driver.initialize
 
-  display.background = two_color.BLACK
+  display.background = two-color.BLACK
 
   // Add text to the display.
   window-style := Style
@@ -89,9 +89,9 @@ two_color_example device reset/gpio.Pin busy/gpio.Pin -> none:
 
   print "5% update $duration"
 
-four_gray_example device reset/gpio.Pin busy/gpio.Pin -> none:
+four-gray-example device reset/gpio.Pin busy/gpio.Pin -> none:
   driver ::= Waveshare2Color213D device 104 212
-      --four_gray_mode
+      --four-gray-mode
       --reset=reset
       --busy=busy
       --no-auto-reset
@@ -101,11 +101,11 @@ four_gray_example device reset/gpio.Pin busy/gpio.Pin -> none:
   driver.reset
   driver.initialize
 
-  display.background = four_gray.LIGHT_GRAY
+  display.background = four-gray.LIGHT-GRAY
 
   window-style := Style
       --background = four-gray.WHITE
-      --border = SolidBorder --width=3 --color=four-gray.DARK_GRAY
+      --border = SolidBorder --width=3 --color=four-gray.DARK-GRAY
   text-style := Style --color=four-gray.BLACK --font=big {
       "alignment": ALIGN-CENTER,
   }
