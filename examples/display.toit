@@ -3,9 +3,8 @@
 // found in the LICENSE file.
 
 import font
-import pixel-display show TwoColorPixelDisplay
-import pixel-display.texture show TEXT-TEXTURE-ALIGN-CENTER
-import pixel-display.two-color show TextTexture WHITE BLACK
+import pixel-display show *
+import pixel-display.two-color show WHITE BLACK
 
 import .get-device
 
@@ -13,11 +12,13 @@ sans ::= font.Font.get "sans10"
 
 main:
   driver := get-device
-  display := TwoColorPixelDisplay driver
+  display := PixelDisplay.two-color driver
+  display.background = WHITE
 
   // Create graphics context.
-  context := display.context --landscape --font=sans --alignment=TEXT-TEXTURE-ALIGN-CENTER --color=BLACK
+  style := Style --color=BLACK --font=sans { "alignment": ALIGN-CENTER }
   // Add text to the display.
-  display.text context 102 50 "Hello, World!"
+  display.add
+      Label --x=102 --y=50 --label="Hello, World!" --style=style
   // Update display.
-  display.draw
+  display.draw --speed=0
