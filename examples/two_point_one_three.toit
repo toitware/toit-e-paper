@@ -8,8 +8,7 @@ import spi
 
 import e_paper.waveshare_gray_2_13d show *
 import font_x11_adobe.sans_24_bold
-import pixel_display show TwoColorPixelDisplay FourGrayPixelDisplay
-import pixel_display.texture show TEXT_TEXTURE_ALIGN_CENTER
+import pixel_display show *
 import pixel_display.four_gray
 import pixel_display.two_color
 
@@ -42,26 +41,33 @@ main:
 
 two_color_example device reset/gpio.Pin busy/gpio.Pin -> none:
   driver ::= Waveshare2Color213D device 104 212 --reset=reset --busy=busy --no-auto-reset --no-auto-initialize
-  display := TwoColorPixelDisplay driver
+  display := PixelDisplay.two-color driver
   driver.reset
   driver.initialize
 
   display.background = two_color.BLACK
 
-  // Create graphics context.
-  context := display.context --landscape --font=big --alignment=TEXT_TEXTURE_ALIGN_CENTER --color=two_color.BLACK
   // Add text to the display.
-  button := two_color.RoundedCornerWindow 16 8 180 88 context.transform 15 two_color.WHITE
-  display.add button
-  display.text context 106 50 "Hello"
-  world := display.text context 106 80 "World!"
+  window-style := Style
+      --background = two-color.WHITE
+      --border = RoundedCornerBorder --radius=15
+  text-style := Style --color=two-color.BLACK --font=big {
+      "alignment": ALIGN-CENTER,
+  }
+  display.add
+      Div.clipping --x=16 --y=8 --w=180 --h=88 --style=window-style [
+          Label --x=90 --y=42 --label="Hello" --style=text-style,
+          Label --x=90 --y=72 --label="World!" --style=text-style --id="world",
+      ]
+
   // Update display.
   duration := Duration.of:
     display.draw --speed=0
 
   print "Full update $duration"
 
-  world.text = "World"
+  world/Label := display.get-element-by-id "world"
+  world.label = "World"
   // Update display.
   duration = Duration.of:
     display.draw --speed=50
@@ -69,14 +75,14 @@ two_color_example device reset/gpio.Pin busy/gpio.Pin -> none:
   print "50% update $duration"
 
   10.repeat:
-    world.text = it.stringify
+    world.label = it.stringify
     // Update display.
     duration = Duration.of:
       display.draw --speed=100
 
     print "100% update $duration"
 
-  world.text = "everyone"
+  world.label = "everyone"
   // Update display.
   duration = Duration.of:
     display.draw --speed=5
@@ -91,26 +97,33 @@ four_gray_example device reset/gpio.Pin busy/gpio.Pin -> none:
       --no-auto-reset
       --no-auto-initialize
 
-  display := FourGrayPixelDisplay driver
+  display := PixelDisplay.four-gray driver
   driver.reset
   driver.initialize
 
   display.background = four_gray.LIGHT_GRAY
 
-  // Create graphics context.
-  context := display.context --landscape --font=big --alignment=TEXT_TEXTURE_ALIGN_CENTER --color=four_gray.BLACK
-  // Add text to the display.
-  button := four_gray.SimpleWindow 16 8 180 88 context.transform 3 four_gray.DARK_GRAY four_gray.WHITE
-  display.add button
-  display.text context 106 50 "Hello"
-  world := display.text context 106 80 "World!"
+  window-style := Style
+      --background = four-gray.WHITE
+      --border = SolidBorder --width=3 --color=four-gray.DARK_GRAY
+  text-style := Style --color=four-gray.BLACK --font=big {
+      "alignment": ALIGN-CENTER,
+  }
+
+  display.add
+      Div.clipping --x=16 --y=8 --w=180 --h=88 --style=window-style [
+          Label --x=90 --y=42 --label="Hello" --style=text-style,
+          Label --x=90 --y=72 --label="World!" --style=text-style --id="world",
+      ]
+  world := display.get-element-by-id "world"
+
   // Update display.
   duration := Duration.of:
     display.draw --speed=0
 
   print "Full update $duration"
 
-  world.text = "World"
+  world.label = "World"
   // Update display.
   duration = Duration.of:
     display.draw --speed=50
@@ -118,14 +131,14 @@ four_gray_example device reset/gpio.Pin busy/gpio.Pin -> none:
   print "50% update $duration"
 
   3.repeat:
-    world.text = it.stringify
+    world.label = it.stringify
     // Update display.
     duration = Duration.of:
       display.draw --speed=100
 
     print "100% update $duration"
 
-  world.text = "everyone"
+  world.label = "everyone"
   // Update display.
   duration = Duration.of:
     display.draw --speed=5

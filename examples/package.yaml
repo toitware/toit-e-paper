@@ -6,4 +6,4 @@ dependencies:
     version: ^0.1.0
   pixel_display:
     url: github.com/toitware/toit-pixel-display
-    version: ^1.6.1
+    version: ^2.1.0
