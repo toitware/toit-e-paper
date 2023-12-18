@@ -16,7 +16,7 @@ main:
   display.background = WHITE
 
   // Create graphics context.
-  style := Style --color=BLACK --font=sans { "alignment": ALIGN-CENTER}
+  style := Style --color=BLACK --font=sans { "alignment": ALIGN-CENTER }
   // Add text to the display.
   display.add
       Label --x=102 --y=50 --label="Hello, World!" --style=style
