@@ -60,8 +60,8 @@ main:
   // Add text to the display.
   display.add
       Div.clipping --x=20 --y=50 --w=160 --h=100 --style=window-style [
-          Label --x=80 --y=40 --label="Hello" --style=label-style,
-          Label --x=80 --y=70 --label="World!" --style=label-style --id="world",
+          Label --x=80 --y=40 --text="Hello" --style=label-style,
+          Label --x=80 --y=70 --text="World!" --style=label-style --id="world",
       ]
 
   // Update display.
@@ -76,7 +76,7 @@ main:
 
   world/Label := display.get-element-by-id "world"
 
-  world.label = "World"
+  world.text = "World"
   // Update display.
   duration = Duration.of:
     display.draw --speed=50
@@ -84,14 +84,14 @@ main:
   print "50% update $duration"
 
   10.repeat:
-    world.label = it.stringify
+    world.text = it.stringify
     // Update display.
     duration = Duration.of:
       display.draw --speed=100
 
     print "100% update $duration"
 
-  world.label = "everyone"
+  world.text = "everyone"
   // Update display.
   duration = Duration.of:
     display.draw --speed=5

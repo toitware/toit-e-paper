@@ -19,6 +19,6 @@ main:
   style := Style --color=BLACK --font=sans { "alignment": ALIGN-CENTER }
   // Add text to the display.
   display.add
-      Label --x=102 --y=50 --label="Hello, World!" --style=style
+      Label --x=102 --y=50 --text="Hello, World!" --style=style
   // Update display.
   display.draw --speed=0

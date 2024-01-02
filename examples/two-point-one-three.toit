@@ -56,8 +56,8 @@ two-color-example device reset/gpio.Pin busy/gpio.Pin -> none:
   }
   display.add
       Div.clipping --x=16 --y=8 --w=180 --h=88 --style=window-style [
-          Label --x=90 --y=42 --label="Hello" --style=text-style,
-          Label --x=90 --y=72 --label="World!" --style=text-style --id="world",
+          Label --x=90 --y=42 --text="Hello" --style=text-style,
+          Label --x=90 --y=72 --text="World!" --style=text-style --id="world",
       ]
 
   // Update display.
@@ -67,7 +67,7 @@ two-color-example device reset/gpio.Pin busy/gpio.Pin -> none:
   print "Full update $duration"
 
   world/Label := display.get-element-by-id "world"
-  world.label = "World"
+  world.text = "World"
   // Update display.
   duration = Duration.of:
     display.draw --speed=50
@@ -75,14 +75,14 @@ two-color-example device reset/gpio.Pin busy/gpio.Pin -> none:
   print "50% update $duration"
 
   10.repeat:
-    world.label = it.stringify
+    world.text = it.stringify
     // Update display.
     duration = Duration.of:
       display.draw --speed=100
 
     print "100% update $duration"
 
-  world.label = "everyone"
+  world.text = "everyone"
   // Update display.
   duration = Duration.of:
     display.draw --speed=5
@@ -112,8 +112,8 @@ four-gray-example device reset/gpio.Pin busy/gpio.Pin -> none:
 
   display.add
       Div.clipping --x=16 --y=8 --w=180 --h=88 --style=window-style [
-          Label --x=90 --y=42 --label="Hello" --style=text-style,
-          Label --x=90 --y=72 --label="World!" --style=text-style --id="world",
+          Label --x=90 --y=42 --text="Hello" --style=text-style,
+          Label --x=90 --y=72 --text="World!" --style=text-style --id="world",
       ]
   world := display.get-element-by-id "world"
 
@@ -123,7 +123,7 @@ four-gray-example device reset/gpio.Pin busy/gpio.Pin -> none:
 
   print "Full update $duration"
 
-  world.label = "World"
+  world.text = "World"
   // Update display.
   duration = Duration.of:
     display.draw --speed=50
@@ -131,14 +131,14 @@ four-gray-example device reset/gpio.Pin busy/gpio.Pin -> none:
   print "50% update $duration"
 
   3.repeat:
-    world.label = it.stringify
+    world.text = it.stringify
     // Update display.
     duration = Duration.of:
       display.draw --speed=100
 
     print "100% update $duration"
 
-  world.label = "everyone"
+  world.text = "everyone"
   // Update display.
   duration = Duration.of:
     display.draw --speed=5
