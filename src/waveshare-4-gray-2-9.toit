@@ -22,3 +22,4 @@ class Waveshare4Gray29 extends EPaper4Grey:
     super device w h
         --reset=reset
         --busy=busy
+        --busy-active-high
