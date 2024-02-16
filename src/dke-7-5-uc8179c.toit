@@ -5,7 +5,10 @@
 import gpio
 import spi
 
-import .three-color.toit
+import pixel-display show *
+
+import .e-paper show *
+import .three-color
 
 /**
 Driver for the DKE 7.5 Inch Black/White/Red HD e Paper Display.
