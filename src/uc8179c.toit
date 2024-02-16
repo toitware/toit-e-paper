@@ -8,6 +8,7 @@
 // Most of the commands match up with the ones in e-paper.toit, but
 // there are a few special ones.
 
+import .e-paper
 
 // These are not supported (no partial transmision).
 // PARTIAL-DATA-START-TRANSMISSION-1_ ::= 0x14
@@ -91,6 +92,14 @@ POWER-OFF-2-FRAMES_             ::= 0x10
 POWER-OFF-3-FRAMES_             ::= 0x20
 POWER-OFF-4-FRAMES_             ::= 0x30
 
+// For BOOSTER_SOFT-START_.
+// Use SOFT-START-10-MS_, SOFT-START-20-MS_, SOFT-START-30-MS_, or
+SOFT-START-40-MS_               ::= 0xc0
+// (100ms from e-paper.toit is not supported and has the same encoding as 40ms).
+// Enable bit for the 4th byte of BOOSTER-SOFT-START_.
+SOFT-START-PHASE-C2-ENABLE_     ::= 0x80
+SOFT-START-PHASE-C2-DISABLE_    ::= 0x00
+
 // For DUAL-SPI_.
 MM-INPUT-PIN-DISABLE_           ::= 0x00
 MM-INPUT-PIN-ENABLE_            ::= 0x10
@@ -144,3 +153,73 @@ UC8179C-FRAME-RATE-200-HZ_      ::= 0x0f
 
 // For RESOLUTION-SETTING_ the order is hres, vres. Both are 16 bit
 // values, big endian, for 4 bytes of data.
+
+// For VCOM-AND-DATA-INTERVAL-SETTING_ first data byte.
+// We don't have a constant for the data polarity, it doesn't seem necessary.
+BORDER-OUTPUT-HI-Z-DISABLED_    ::= 0x00
+BORDER-OUTPUT-HI-Z-ENABLED_     ::= 0x80
+// Which LUT to use for the border in 3-color (KWR) mode.
+BORDER-LUT-3-COLOR-MODE-USE-BD_ ::= 0x00
+BORDER-LUT-3-COLOR-MODE-USE-R_  ::= 0x10
+BORDER-LUT-3-COLOR-MODE-USE-W_  ::= 0x20
+BORDER-LUT-3-COLOR-MODE-USE-K_  ::= 0x30
+// Which LUT to use for the border in 2-color (KW) mode.
+BORDER-LUT-2-COLOR-MODE-USE-BD_ ::= 0x00
+BORDER-LUT-2-COLOR-MODE-USE-KW_ ::= 0x10
+BORDER-LUT-2-COLOR-MODE-USE-WK_ ::= 0x20
+BORDER-LUT-2-COLOR-MODE-USE-KK_ ::= 0x30
+// These are for 2-color (KW) mode.
+COPY-NEW-DATA-TO-OLD-DISABLED_  ::= 0x00
+COPY-NEW-DATA-TO-OLD-ENABLED_   ::= 0x08
+
+// For VCOM-AND-DATA-INTERVAL-SETTING_, second data byte.
+VCOM-AND-DATA-INTERVAL-17-HSYNC_ ::= 0x00
+VCOM-AND-DATA-INTERVAL-16-HSYNC_ ::= 0x01
+VCOM-AND-DATA-INTERVAL-15-HSYNC_ ::= 0x02
+VCOM-AND-DATA-INTERVAL-14-HSYNC_ ::= 0x03
+VCOM-AND-DATA-INTERVAL-13-HSYNC_ ::= 0x04
+VCOM-AND-DATA-INTERVAL-12-HSYNC_ ::= 0x05
+VCOM-AND-DATA-INTERVAL-11-HSYNC_ ::= 0x06
+VCOM-AND-DATA-INTERVAL-10-HSYNC_ ::= 0x07
+VCOM-AND-DATA-INTERVAL-9-HSYNC_ ::= 0x08
+VCOM-AND-DATA-INTERVAL-8-HSYNC_ ::= 0x09
+VCOM-AND-DATA-INTERVAL-7-HSYNC_ ::= 0x0a
+VCOM-AND-DATA-INTERVAL-6-HSYNC_ ::= 0x0b
+VCOM-AND-DATA-INTERVAL-5-HSYNC_ ::= 0x0c
+VCOM-AND-DATA-INTERVAL-4-HSYNC_ ::= 0x0d
+VCOM-AND-DATA-INTERVAL-3-HSYNC_ ::= 0x0e
+VCOM-AND-DATA-INTERVAL-2-HSYNC_ ::= 0x0f
+
+// For TCON-SETTING_.
+G2S-NON-OVERLAP-PERIOD-4_       ::= 0x00
+G2S-NON-OVERLAP-PERIOD-8_       ::= 0x01
+G2S-NON-OVERLAP-PERIOD-12_      ::= 0x02
+G2S-NON-OVERLAP-PERIOD-16_      ::= 0x03
+G2S-NON-OVERLAP-PERIOD-20_      ::= 0x04
+G2S-NON-OVERLAP-PERIOD-24_      ::= 0x05
+G2S-NON-OVERLAP-PERIOD-28_      ::= 0x06
+G2S-NON-OVERLAP-PERIOD-32_      ::= 0x07
+G2S-NON-OVERLAP-PERIOD-36_      ::= 0x08
+G2S-NON-OVERLAP-PERIOD-40_      ::= 0x09
+G2S-NON-OVERLAP-PERIOD-44_      ::= 0x0a
+G2S-NON-OVERLAP-PERIOD-48_      ::= 0x0b
+G2S-NON-OVERLAP-PERIOD-52_      ::= 0x0c
+G2S-NON-OVERLAP-PERIOD-56_      ::= 0x0d
+G2S-NON-OVERLAP-PERIOD-60_      ::= 0x0e
+G2S-NON-OVERLAP-PERIOD-64_      ::= 0x0f
+S2G-NON-OVERLAP-PERIOD-4_       ::= 0x00
+S2G-NON-OVERLAP-PERIOD-8_       ::= 0x10
+S2G-NON-OVERLAP-PERIOD-12_      ::= 0x20
+S2G-NON-OVERLAP-PERIOD-16_      ::= 0x03
+S2G-NON-OVERLAP-PERIOD-20_      ::= 0x40
+S2G-NON-OVERLAP-PERIOD-24_      ::= 0x50
+S2G-NON-OVERLAP-PERIOD-28_      ::= 0x60
+S2G-NON-OVERLAP-PERIOD-32_      ::= 0x70
+S2G-NON-OVERLAP-PERIOD-36_      ::= 0x80
+S2G-NON-OVERLAP-PERIOD-40_      ::= 0x90
+S2G-NON-OVERLAP-PERIOD-44_      ::= 0xa0
+S2G-NON-OVERLAP-PERIOD-48_      ::= 0xb0
+S2G-NON-OVERLAP-PERIOD-52_      ::= 0xc0
+S2G-NON-OVERLAP-PERIOD-56_      ::= 0xd0
+S2G-NON-OVERLAP-PERIOD-60_      ::= 0xe0
+S2G-NON-OVERLAP-PERIOD-64_      ::= 0xf0
