@@ -4,8 +4,8 @@
 
 // Driver for SPI-connected e-paper displays.  These are two- or three-color displays.
 
-import binary
 import bitmap
+import io
 import gpio
 import spi
 
@@ -263,40 +263,40 @@ abstract class EPaper extends AbstractDriver:
 
   // Send a command with a 16 bit argument, little-endian order.
   send-le command x:
-    binary.LITTLE-ENDIAN.put-uint16 buffer_ 0 x
+    io.LITTLE-ENDIAN.put-uint16 buffer_ 0 x
     send-array command buffer_ --to=2
 
   // Send a command with two 16 bit arguments, little-endian order.
   send-le command x y:
-    binary.LITTLE-ENDIAN.put-uint16 buffer_ 0 x
-    binary.LITTLE-ENDIAN.put-uint16 buffer_ 2 y
+    io.LITTLE-ENDIAN.put-uint16 buffer_ 0 x
+    io.LITTLE-ENDIAN.put-uint16 buffer_ 2 y
     send-array command buffer_ --to=4
 
   // Send a command with four 16 bit arguments, little-endian order.
   send-le command x y w h:
-    binary.LITTLE-ENDIAN.put-uint16 buffer_ 0 x
-    binary.LITTLE-ENDIAN.put-uint16 buffer_ 2 y
-    binary.LITTLE-ENDIAN.put-uint16 buffer_ 4 w
-    binary.LITTLE-ENDIAN.put-uint16 buffer_ 6 h
+    io.LITTLE-ENDIAN.put-uint16 buffer_ 0 x
+    io.LITTLE-ENDIAN.put-uint16 buffer_ 2 y
+    io.LITTLE-ENDIAN.put-uint16 buffer_ 4 w
+    io.LITTLE-ENDIAN.put-uint16 buffer_ 6 h
     send-array command buffer_ --to=8
 
   // Send a command with a 16 bit argument, big endian order.
   send-be command x:
-    binary.BIG-ENDIAN.put-uint16 buffer_ 0 x
+    io.BIG-ENDIAN.put-uint16 buffer_ 0 x
     send-array command buffer_ --to=2
 
   // Send a command with two 16 bit arguments, big endian order.
   send-be command x y:
-    binary.BIG-ENDIAN.put-uint16 buffer_ 0 x
-    binary.BIG-ENDIAN.put-uint16 buffer_ 2 y
+    io.BIG-ENDIAN.put-uint16 buffer_ 0 x
+    io.BIG-ENDIAN.put-uint16 buffer_ 2 y
     send-array command buffer_ --to=4
 
   // Send a command with four 16 bit arguments, big endian order.
   send-be command x y w h:
-    binary.BIG-ENDIAN.put-uint16 buffer_ 0 x
-    binary.BIG-ENDIAN.put-uint16 buffer_ 2 y
-    binary.BIG-ENDIAN.put-uint16 buffer_ 4 w
-    binary.BIG-ENDIAN.put-uint16 buffer_ 6 h
+    io.BIG-ENDIAN.put-uint16 buffer_ 0 x
+    io.BIG-ENDIAN.put-uint16 buffer_ 2 y
+    io.BIG-ENDIAN.put-uint16 buffer_ 4 w
+    io.BIG-ENDIAN.put-uint16 buffer_ 6 h
     send-array command buffer_ --to=8
 
   wait-for-busy:
