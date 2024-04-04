@@ -1,7 +1,7 @@
 name: e-paper
 description: A driver for some popular E-paper displays.
 environment:
-  sdk: ^2.0.0-alpha.118
+  sdk: ^2.0.0-alpha.144
 dependencies:
   pixel_display:
     url: github.com/toitware/toit-pixel-display
